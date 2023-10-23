@@ -4,7 +4,7 @@ GLFW = -I/Users/${USER}/.brew/Cellar/glfw/3.3.8/include -L/Users/${USER}/.brew/C
 GLEW = -I/Users/${USER}/.brew/Cellar/glew/2.2.0_1/include -L/Users/${USER}/.brew/Cellar/glew/2.2.0_1/lib -lGLEW -framework OpenGL
 
 GLAD = glad.o
-GLADLIB = gcc -c src/includes/glad/glad.c -Ilibs
+GLADLIB = gcc -c includes/glad/glad.c -Ilibs
 
 EXEC = ./scop
 
@@ -59,14 +59,8 @@ OBJ_DIR = objects/
 
 SRC = humangl \
 	  glfw \
-	  camera \
-	  render \
 	  object \
-	  texture \
-	  keyPress \
-	  renderText \
-	  shader/shader \
-	  processObjFile \
+	  camera \
 
 # Imgui source files to compile
 IMGUI =	includes/imgui/imgui \
@@ -83,10 +77,10 @@ IMGUI_SRCS	= $(addprefix $(SRC_DIR), $(addsuffix .cpp, $(IMGUI)))
 IMGUI_OBJS	= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(IMGUI)))
 all: $(NAME)
 
-$(NAME): $(OBJS) ${IMGUI_OBJS}
+$(NAME): $(OBJS)
 	@echo "$(YELLOW)Compiling..$(COLOR_END)"
 	@${GLADLIB}
-	@$(CC) $(CFLAGS) $(GLEW) $(GLFW) ${GLAD} $(OBJS) ${IMGUI_OBJS} -o $(NAME)
+	@$(CC) $(CFLAGS) $(GLEW) $(GLFW) ${GLAD} $(OBJS) -o $(NAME)
 	@echo "$(GREEN)The project is compiled..$(COLOR_END)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
