@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-#include "../includes/glad/glad.h"
+#include "glad/glad.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -29,6 +29,34 @@
 #define WINDOW_WIDTH 3200
 #define WINDOW_HEIGHT 1800
 
+enum RenderMode { WIREFRAME, POINTS, FILLED };
 
+struct Vertex {
+	float x, y, z, texX, texY, normalX, normalY, normalZ;
+};
+
+struct Uv {
+	float u, v, w;
+};
+
+struct Ka {
+	float r, g, b;
+};
+
+struct Kd {
+	float r, g, b;
+};
+
+struct Ks {
+	float r, g, b;
+};
+
+struct Mtl {
+	Ka ka;
+	Kd kd;
+	Ks ks;
+	float Ns, Ni, d;
+	int illum;
+};
 
 #endif
