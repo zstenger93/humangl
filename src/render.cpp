@@ -12,6 +12,8 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 	int light = 2;
 	int prevTex = -1;
 	glm::vec3 color(1.0f, 0.0f, 0.0f);
+	
+
 	while (!glfwWindowShouldClose(window)) {
 		createTexture(object, prevTex);
 		camera.fps(camera);

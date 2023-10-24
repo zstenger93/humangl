@@ -51,6 +51,7 @@ SRC = humangl \
 	  texture \
 	  keyPress \
 	  renderText \
+	  matrixStack \
 	  processObjFile \
 
 SHADER = shader \

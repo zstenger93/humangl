@@ -4,6 +4,7 @@
 #include "../includes/glfw.hpp"
 #include "../includes/headers.hpp"
 #include "../includes/imgui/imgui.h"
+#include "../includes/matrixStack.hpp"
 #include "../includes/object.hpp"
 #include "../includes/processObjFile.hpp"
 #include "../includes/render.hpp"
@@ -29,6 +30,12 @@ int main(int argc, char **argv) {
 	passMtlInfoToFragmentShader(shader, object);
 	separateTrianglesAndSquares(object);
 	convertSquaresToTriangles(object);
+
+	for (int i = 0; i < object.Triangles.size(); i += 5) {
+		std::cout << object.Triangles[i] << " " << object.Triangles[i + 1] << " "
+				  << object.Triangles[i + 2] << std::endl;
+	}
+
 	createVaoVbo(object);
 	renderingLoop(window, shader, camera, object);
 	cleanUp(object);
