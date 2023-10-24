@@ -43,7 +43,7 @@ SHADER_OBJ = objects/
 IMGUI_DIR = includes/imgui/
 IMGUI_OBJ = objects/
 
-SRC = scop \
+SRC = humangl \
 	  glfw \
 	  camera \
 	  render \
