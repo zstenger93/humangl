@@ -1,5 +1,8 @@
 <h1 align="center">📖 42 HUMANGL</h1>
 
+
+Triangles needs slight changes to be usable for this project.
+
 `std::vector<float> Triangles;` just before drawing
 
 ```
