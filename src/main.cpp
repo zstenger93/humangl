@@ -1,11 +1,14 @@
 #include "../includes/cube.hpp"
+#include "../includes/globals.hpp"
+
+float g_proportion = 1.777f;
 
 void addBodyParts(Cube &Human) {
-  Cube LeftHand(glm::vec3(-0.5, 0.0, 0.0), -1, 0, 1);
-  Cube RightHand(glm::vec3(0.5, 0.0, 0.0), 1, 0, 2);
-  Cube LeftLeg(glm::vec3(-0.3, -0.5, 0.0), -1, -1, 3);
-  Cube RightLeg(glm::vec3(0.3, -0.5, 0.0), 1, -1, 4);
-  Cube Head(glm::vec3(0.0, 0.5, 0.0), 0, 1, 5);
+  Cube LeftHand(glm::vec3(-DEF, 0.0, 0.0), -1, 0, 2);
+  Cube RightHand(glm::vec3(DEF, 0.0, 0.0), 1, 0, 3);
+  Cube LeftLeg(glm::vec3(-DEF / 2, -DEF, 0.0), -1, -1, 4);
+  Cube RightLeg(glm::vec3(DEF / 2, -DEF, 0.0), 1, -1, 5);
+  Cube Head(glm::vec3(0.0, DEF, 0.0), 0, 1, 6);
   Human._cubes.push_back(LeftHand);
   Human._cubes.push_back(RightHand);
   Human._cubes.push_back(LeftLeg);
@@ -13,10 +16,16 @@ void addBodyParts(Cube &Human) {
   Human._cubes.push_back(Head);
 }
 
+void changeWindowSize(GLFWwindow *window, int width, int height) {
+  glViewport(0, 0, width, height);
+  g_proportion = static_cast<float>(width) / static_cast<float>(height);
+  (void)window;
+}
+
 void mainLoop(GLFWwindow *window) {
   Cube Human;
   addBodyParts(Human);
-  cout << Human._cubes.size() << endl;
+  glfwSetFramebufferSizeCallback(window, changeWindowSize);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
     Human.drawCube();

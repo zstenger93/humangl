@@ -26,5 +26,6 @@ using std::vector;
 // const GLuint ShaderError = static_cast<GLuint>(-1);
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#define DEF (0.5)
+#define DEF (0.2)
+
 #endif
