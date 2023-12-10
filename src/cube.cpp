@@ -60,7 +60,7 @@ void Cube::CubeHelper() {
 }
 
 void Cube::drawCube() {
-  glColor4f(1 / _color, 1 / (_color * 2), 1 / (_color * 3), 1.0f);
+  glColor4f(1 / _color, 1 / _color, 1 / _color, 1.0f);
   CubeHelper();
   for (auto cubes : _cubes) {
     cubes.drawCube();
