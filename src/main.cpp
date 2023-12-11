@@ -4,16 +4,24 @@
 float g_proportion = 1.777f;
 
 void addBodyParts(Cube &Human) {
-  Cube LeftHand(glm::vec3(-DEF, 0.0, 0.0), -1, 0, 2);
-  Cube RightHand(glm::vec3(DEF, 0.0, 0.0), 1, 0, 3);
-  Cube LeftLeg(glm::vec3(-DEF / 2, -DEF, 0.0), -1, -1, 4);
-  Cube RightLeg(glm::vec3(DEF / 2, -DEF, 0.0), 1, -1, 5);
+  Cube LeftHandTop(glm::vec3(-DEF, 0.0, 0.0), -1, 0, 2);
+  Cube RightHandTop(glm::vec3(DEF, 0.0, 0.0), 1, 0, 3);
+  Cube LeftLegTop(glm::vec3(-DEF / 2, -DEF, 0.0), -1, -1, 4);
+  Cube RightLegTop(glm::vec3(DEF / 2, -DEF, 0.0), 1, -1, 5);
   Cube Head(glm::vec3(0.0, DEF, 0.0), 0, 1, 6);
-  Human._cubes.push_back(LeftHand);
-  Human._cubes.push_back(RightHand);
-  Human._cubes.push_back(LeftLeg);
-  Human._cubes.push_back(RightLeg);
+  Cube LeftHandBottom(glm::vec3(-3 * DEF, 0.0, 0.0), -1, 0, 7);
+  Cube RightHandBottom(glm::vec3(3 * DEF, 0.0, 0.0), 1, 0, 8);
+  Cube LeftLegBottom(glm::vec3(-DEF / 2, -3 * DEF, 0.0), -1, -1, 9);
+  Cube RightLegBottom(glm::vec3(DEF / 2, -3 * DEF, 0.0), 1, -1, 10);
+  LeftHandTop._cubes.push_back(LeftHandBottom);
+  RightHandTop._cubes.push_back(RightHandBottom);
+  LeftLegTop._cubes.push_back(LeftLegBottom);
+  RightLegTop._cubes.push_back(RightLegBottom);
   Human._cubes.push_back(Head);
+  Human._cubes.push_back(LeftHandTop);
+  Human._cubes.push_back(RightHandTop);
+  Human._cubes.push_back(LeftLegTop);
+  Human._cubes.push_back(RightLegTop);
 }
 
 void changeWindowSize(GLFWwindow *window, int width, int height) {
