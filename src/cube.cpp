@@ -67,4 +67,15 @@ void Cube::drawCube() {
   }
 }
 
+void Cube::rotateCube(glm::vec3 angle) {
+  for (auto &point : _points) {
+    point.x -= angle.x;
+    point.y -= angle.y;
+    point.z -= angle.z;
+  }
+  for (auto &cube : _cubes) {
+    cube.rotateCube(angle);
+  }
+}
+
 Cube::~Cube() {}

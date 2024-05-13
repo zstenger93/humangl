@@ -16,7 +16,6 @@ public:
   Cube(glm::vec3 connectionPoint, int directionX, int directionY, float color);
   void drawCube();
   void CubeHelper();
-  void generateTheCube(float offset);
   void rotateCube(glm::vec3 angle);
 };
 
