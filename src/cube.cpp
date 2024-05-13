@@ -59,19 +59,41 @@ void Cube::CubeHelper() {
   glEnd();
 }
 
+float Cube::getAverageCoordinate() const {
+  float sum = 0;
+  for (auto &point : _points) {
+    sum += point.z;
+  }
+  sum /= _points.size();
+  return sum;
+}
+
+std::vector<Cube> Cube::recusiveCubes() {
+  std::vector<Cube> tempCubes;
+  tempCubes.push_back(*this); 
+  for (unsigned long i = 0; i < _cubes.size(); i++) {
+    std::vector<Cube> temp = _cubes[i].recusiveCubes();
+    tempCubes.insert(tempCubes.end(), temp.begin(), temp.end());
+  }
+  return tempCubes;
+}
+
 void Cube::drawCube() {
+  std::vector<Cube> cubes = recusiveCubes();
   glColor4f(1 / _color, 1 / _color, 1 / _color, 1.0f);
-  CubeHelper();
-  for (auto cubes : _cubes) {
-    cubes.drawCube();
+  std::sort(cubes.begin(), cubes.end(), [](const Cube& a, const Cube& b) {
+    return a.getAverageCoordinate() > b.getAverageCoordinate();
+  });
+  for (auto &cube : cubes) {
+    glColor4f(1 / cube._color, 1 / cube._color, 1 / cube._color, 1.0f);
+    cube.CubeHelper();
   }
 }
 
 void Cube::rotateCube(glm::vec3 angle) {
+  rotatePoint(_rotationPoint, angle, _rotationPoint);
   for (auto &point : _points) {
-    point.x -= angle.x;
-    point.y -= angle.y;
-    point.z -= angle.z;
+    rotatePoint(point, angle, _rotationPoint);
   }
   for (auto &cube : _cubes) {
     cube.rotateCube(angle);

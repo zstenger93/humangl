@@ -37,7 +37,9 @@ void mainLoop(GLFWwindow *window) {
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
     Human.drawCube();
-    Human.rotateCube(glm::vec3(0.01, 0.01, 0.01));
+    // Human.rotateCube(glm::vec3(0.0, 1.0, 0.0));
+    // Human._cubes[0].rotateCube(glm::vec3(1.0, 0.0, 0.0));
+    Human._cubes[1].rotateCube(glm::vec3(0.0, 0.0, 1.0));
     glfwSwapBuffers(window);
     glfwPollEvents();
   }

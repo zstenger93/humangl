@@ -2,6 +2,7 @@
 #define CUBE_HPP
 
 #include "includes.hpp"
+#include "matrix.hpp"
 
 class Cube {
 public:
@@ -17,6 +18,8 @@ public:
   void drawCube();
   void CubeHelper();
   void rotateCube(glm::vec3 angle);
+  std::vector<Cube> recusiveCubes();
+  float getAverageCoordinate() const;
 };
 
 #endif

@@ -23,6 +23,7 @@ using std::vector;
 #endif
 
 #include <GLFW/glfw3.h>
+// const GLuint ShaderError = static_cast<GLuint>(-1);
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #define DEF (0.2)
