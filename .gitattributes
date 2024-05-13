@@ -1,3 +1,0 @@
-*.c linguist-vendored
-*.h linguist-vendored
-includes/imgui/*.cpp linguist-vendored
