@@ -17,7 +17,7 @@ public:
   Cube(glm::vec3 connectionPoint, int directionX, int directionY, float color);
   void drawCube();
   void CubeHelper();
-  void rotateCube(glm::vec3 angle);
+  void rotateCube(glm::vec3 angle, glm::vec3 &initialRotationPoint);
   std::vector<Cube> recusiveCubes();
   float getAverageCoordinate() const;
 };

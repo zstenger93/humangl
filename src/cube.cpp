@@ -90,13 +90,13 @@ void Cube::drawCube() {
   }
 }
 
-void Cube::rotateCube(glm::vec3 angle) {
-  rotatePoint(_rotationPoint, angle, _rotationPoint);
+void Cube::rotateCube(glm::vec3 angle, glm::vec3& initialRotationPoint) {
   for (auto &point : _points) {
-    rotatePoint(point, angle, _rotationPoint);
+    rotatePoint(point, angle, initialRotationPoint);
   }
   for (auto &cube : _cubes) {
-    cube.rotateCube(angle);
+    rotatePoint(cube._rotationPoint, angle, initialRotationPoint);
+    cube.rotateCube(angle, initialRotationPoint);
   }
 }
 

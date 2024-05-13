@@ -34,12 +34,15 @@ void mainLoop(GLFWwindow *window) {
   Cube Human;
   addBodyParts(Human);
   glfwSetFramebufferSizeCallback(window, changeWindowSize);
+  Human.rotateCube(glm::vec3(0.0, 90.0, 0.0), Human._rotationPoint);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
     Human.drawCube();
     // Human.rotateCube(glm::vec3(0.0, 1.0, 0.0));
     // Human._cubes[0].rotateCube(glm::vec3(1.0, 0.0, 0.0));
-    Human._cubes[1].rotateCube(glm::vec3(0.0, 0.0, 1.0));
+    // Human.rotateCube(glm::vec3(1.0, 0.0, 0.0), Human._rotationPoint);
+    Human._cubes[1].rotateCube(glm::vec3(0.0, 0.0, 1.0), Human._cubes[1]._rotationPoint);
+    // Human._cubes[1]._cubes[0].rotateCube(glm::vec3(0.0, 0.0, 1.0), Human._cubes[1]._cubes[0]._rotationPoint);
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
