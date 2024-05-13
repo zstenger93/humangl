@@ -20,6 +20,7 @@ public:
   void rotateCube(glm::vec3 angle, glm::vec3 &initialRotationPoint);
   std::vector<Cube> recusiveCubes();
   float getAverageCoordinate() const;
+  void changeRotationPoint(glm::vec3 newRotationPoint);
 };
 
 #endif

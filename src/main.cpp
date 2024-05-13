@@ -4,19 +4,27 @@
 float g_proportion = 1.777f;
 
 void addBodyParts(Cube &Human) {
-  Cube LeftHandTop(glm::vec3(-DEF, 0.0, 0.0), -1, 0, 2);
-  Cube RightHandTop(glm::vec3(DEF, 0.0, 0.0), 1, 0, 3);
-  Cube LeftLegTop(glm::vec3(-DEF / 2, -DEF, 0.0), -1, -1, 4);
-  Cube RightLegTop(glm::vec3(DEF / 2, -DEF, 0.0), 1, -1, 5);
+  // Add Boddy Parts
+  Cube LeftHandTop(glm::vec3(-DEF, DEF * 2, 0.0), -1, 0, 2);
+  Cube RightHandTop(glm::vec3(DEF, DEF * 2, 0.0), 1, 0, 3);
+  Cube LeftLegTop(glm::vec3(-DEF / 10, -DEF, 0.0), -1, -1, 4);
+  Cube RightLegTop(glm::vec3(DEF / 10, -DEF, 0.0), 1, -1, 5);
   Cube Head(glm::vec3(0.0, DEF, 0.0), 0, 1, 6);
-  Cube LeftHandBottom(glm::vec3(-3 * DEF, 0.0, 0.0), -1, 0, 7);
-  Cube RightHandBottom(glm::vec3(3 * DEF, 0.0, 0.0), 1, 0, 8);
-  Cube LeftLegBottom(glm::vec3(-DEF / 2, -3 * DEF, 0.0), -1, -1, 9);
-  Cube RightLegBottom(glm::vec3(DEF / 2, -3 * DEF, 0.0), 1, -1, 10);
+  Cube LeftHandBottom(glm::vec3(-3 * DEF, DEF * 2, 0.0), -1, 0, 7);
+  Cube RightHandBottom(glm::vec3(3 * DEF, DEF * 2, 0.0), 1, 0, 8);
+  Cube LeftLegBottom(glm::vec3(-DEF / 10, -3 * DEF, 0.0), -1, -1, 9);
+  Cube RightLegBottom(glm::vec3(DEF / 10, -3 * DEF, 0.0), 1, -1, 10);
+  // Change Rotation Points
+  LeftHandTop.changeRotationPoint(glm::vec3(-DEF, DEF, 0.0));
+  RightHandTop.changeRotationPoint(glm::vec3(DEF, DEF, 0.0));
   LeftHandTop._cubes.push_back(LeftHandBottom);
   RightHandTop._cubes.push_back(RightHandBottom);
   LeftLegTop._cubes.push_back(LeftLegBottom);
   RightLegTop._cubes.push_back(RightLegBottom);
+
+
+  LeftHandTop.rotateCube(glm::vec3(0.0, 0.0, 90.0), LeftHandTop._rotationPoint);
+  RightHandTop.rotateCube(glm::vec3(0.0, 0.0, -90.0), RightHandTop._rotationPoint);
   Human._cubes.push_back(Head);
   Human._cubes.push_back(LeftHandTop);
   Human._cubes.push_back(RightHandTop);
@@ -34,14 +42,13 @@ void mainLoop(GLFWwindow *window) {
   Cube Human;
   addBodyParts(Human);
   glfwSetFramebufferSizeCallback(window, changeWindowSize);
-  Human.rotateCube(glm::vec3(0.0, 90.0, 0.0), Human._rotationPoint);
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
     Human.drawCube();
     // Human.rotateCube(glm::vec3(0.0, 1.0, 0.0));
     // Human._cubes[0].rotateCube(glm::vec3(1.0, 0.0, 0.0));
     // Human.rotateCube(glm::vec3(1.0, 0.0, 0.0), Human._rotationPoint);
-    Human._cubes[1].rotateCube(glm::vec3(0.0, 0.0, 1.0), Human._cubes[1]._rotationPoint);
+    // Human._cubes[1].rotateCube(glm::vec3(0.0, 0.0, 1.0), Human._cubes[1]._rotationPoint);
     // Human._cubes[1]._cubes[0].rotateCube(glm::vec3(0.0, 0.0, 1.0), Human._cubes[1]._cubes[0]._rotationPoint);
     glfwSwapBuffers(window);
     glfwPollEvents();

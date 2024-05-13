@@ -100,4 +100,8 @@ void Cube::rotateCube(glm::vec3 angle, glm::vec3& initialRotationPoint) {
   }
 }
 
+void Cube::changeRotationPoint(glm::vec3 newRotationPoint) {
+  _rotationPoint = newRotationPoint;
+}
+
 Cube::~Cube() {}
