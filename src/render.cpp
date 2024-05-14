@@ -19,6 +19,9 @@ class Cube
 		std::vector<glm ::ivec3> _triangles;
 		std::vector<Cube> _cubes;
 		glm::vec3 _parentCubeAttachmentPoint;
+		float _sizeX;
+		float _sizeY;
+		float _sizeZ;
 		Cube *_parentCube;
 		Cube();
 		~Cube();
@@ -28,8 +31,9 @@ class Cube
 		void cubeSelectIVec();
 		Cube(Cube &parentCube, glm::vec3 parentCubeAttachmentPoint, glm::vec3 childCubeAttachmentPoint);
 		void moveCube(glm::vec3 translation);
+		void resize(float size);
+		void translateCoordinates();
 };
-
 
 void Cube::generateCube()
 {
@@ -77,22 +81,12 @@ Cube::Cube()
 	_rotationPoint = glm::vec3(0.5f, 0.5f, 0.5f);
 	_parentCubeAttachmentPoint = glm::vec3(0.5f, 0.5f, 0.5f);
 	_parentCube = nullptr;
-	Cube leftArm(*this, glm::vec3(0.0f, 1.0f, 0.5f), glm::vec3(1.0f, 1.0f, 0.5f));
-	Cube rightArm(*this, glm::vec3(1.0f, 1.0f, 0.5f), glm::vec3(0.0f, 1.0f, 0.5f));
-	Cube head(*this, glm::vec3(0.5f, 1.0f, 0.5f), glm::vec3(0.5f, 0.0f, 0.5f));
-	Cube leftForeArm(leftArm, glm::vec3(0.0f, 0.5f, 0.5f), glm::vec3(1.0f, 0.5f, 0.5f));
-	Cube rightForeArm(rightArm, glm::vec3(1.0f, 0.5f, 0.5f), glm::vec3(0.0f, 0.5f, 0.5f));
-	leftArm._cubes.push_back(leftForeArm);
-	rightArm._cubes.push_back(rightForeArm);
-	_cubes.push_back(leftArm);
-	_cubes.push_back(rightArm);
-	_cubes.push_back(head);
 }
 
 glm::vec3 translateAttachmentPointToCoordinate(Cube &cube, glm::vec3 &attachmentPoint)
 {
     glm::vec3 minPoint(FLT_MAX);
-    glm::vec3 maxPoint(FLT_MIN);
+    glm::vec3 maxPoint(FLT_MIN);	
     for (auto &point : cube._points)
     {
         minPoint = glm::min(minPoint, point);
@@ -102,6 +96,28 @@ glm::vec3 translateAttachmentPointToCoordinate(Cube &cube, glm::vec3 &attachment
     glm::vec3 translation = minPoint + size * attachmentPoint;
     return translation;
 }
+
+void Cube::translateCoordinates()
+{
+	if (_parentCube == nullptr) return;
+	glm::vec3 translationParent = translateAttachmentPointToCoordinate(*_parentCube, _parentCubeAttachmentPoint);
+	glm::vec3 trnaslationChild = translateAttachmentPointToCoordinate(*this, _rotationPoint);
+	moveCube(translationParent - trnaslationChild);
+}
+
+void Cube::resize(float size) {
+	for (auto &point: _points)
+	{
+		point *= size;
+	}
+	translateCoordinates();
+	std::cout << _cubes.size() << std::endl;
+	for (auto &cube: _cubes)
+	{
+		cube.translateCoordinates();
+	}
+}
+
 
 void Cube::moveCube(glm::vec3 translation)
 {
@@ -115,16 +131,17 @@ void Cube::moveCube(glm::vec3 translation)
 	}
 }
 
+
 Cube::Cube(Cube &parentCube, glm::vec3 parentCubeAttachmentPoint, glm::vec3 childCubeAttachmentPoint)
 {
 	_parentCube = &parentCube;
 	_parentCubeAttachmentPoint = parentCubeAttachmentPoint;
 	_rotationPoint = childCubeAttachmentPoint;
 	generateCube();
-	glm::vec3 translationParent = translateAttachmentPointToCoordinate(parentCube, parentCubeAttachmentPoint);
-	glm::vec3 trnaslationChild = translateAttachmentPointToCoordinate(*this, childCubeAttachmentPoint);
-	moveCube(translationParent - trnaslationChild);
+	translateCoordinates();
 }
+
+
 
 
 Cube::~Cube()
@@ -171,9 +188,40 @@ std::vector<float> humanGLLogic(Object &object, Cube &human) {
 }
 
 
+void rotatePoint(glm::vec3 &point, glm::vec3 angle, glm::vec3 &rotationPoint) {
+    float x, y, z, temp_y, temp_x, temp_z;
+    point -= rotationPoint;
+    glm::vec3 rad = glm::radians(angle);
+    // x
+    temp_y = point.y;
+    temp_z = point.z;
+    y = temp_y * cos(rad.x) - temp_z * sin(rad.x);
+    z = temp_y * sin(rad.x) + temp_z * cos(rad.x);
+
+    // y
+    temp_x = point.x;
+    temp_z = z;
+    x = temp_x * cos(rad.y) + temp_z * sin(rad.y);
+    z = -temp_x * sin(rad.y) + temp_z * cos(rad.y);
+
+    // z
+    temp_x = x;
+    temp_y = y;
+    x = temp_x * cos(rad.z) - temp_y * sin(rad.z);
+    y = temp_x * sin(rad.z) + temp_y * cos(rad.z);
+
+    point.x = x;
+    point.y = y;
+    point.z = z;
+    point += rotationPoint;
+}
+
+
+
+
 void Cube::renderHuman()
 {
-	moveCube(glm::vec3(0.01f, 0.0f, 0.0f));
+
 }
 
 void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &object) {
@@ -182,6 +230,24 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 	int prevTex = -1;
 	glm::vec3 color(1.0f, 0.0f, 0.0f);
 	Cube human;
+	Cube leftArm(human, glm::vec3(0.0f, 1.0f, 0.5f), glm::vec3(1.0f, 1.0f, 0.5f));
+	Cube rightArm(human, glm::vec3(1.0f, 1.0f, 0.5f), glm::vec3(0.0f, 1.0f, 0.5f));
+	Cube head(human, glm::vec3(0.5f, 1.0f, 0.5f), glm::vec3(0.5f, 0.0f, 0.5f));
+	Cube leftForeArm(leftArm, glm::vec3(0.0f, 0.5f, 0.5f), glm::vec3(1.0f, 0.5f, 0.5f));
+	Cube rightForeArm(rightArm, glm::vec3(1.0f, 0.5f, 0.5f), glm::vec3(0.0f, 0.5f, 0.5f));
+	Cube leftLeg(human, glm::vec3(0.25f, 0.0f, 0.5f), glm::vec3(0.75f, 1.0f, 0.5f));
+	Cube rightLeg(human, glm::vec3(0.75f, 0.0f, 0.5f), glm::vec3(0.25f, 1.0f, 0.5f));
+	Cube leftShin(leftLeg, glm::vec3(0.5f, 0.0f, 0.5f), glm::vec3(0.5f, 1.0f, 0.5f));
+	Cube rightShin(rightLeg, glm::vec3(0.5f, 0.0f, 0.5f), glm::vec3(0.5f, 1.0f, 0.5f));
+	leftArm._cubes.push_back(leftForeArm);
+	rightArm._cubes.push_back(rightForeArm);
+	leftLeg._cubes.push_back(leftShin);
+	rightLeg._cubes.push_back(rightShin);
+	human._cubes.push_back(leftArm);
+	human._cubes.push_back(rightArm);
+	human._cubes.push_back(head);
+	human._cubes.push_back(leftLeg);
+	human._cubes.push_back(rightLeg);
 	while (!glfwWindowShouldClose(window)) {
 		createTexture(object, prevTex);
 		camera.fps(camera);
