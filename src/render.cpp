@@ -10,6 +10,39 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "includes/slider.hpp"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+std::vector<float> humanGLLogic(Object &object) {
+	std::vector<float> newPoints;
+	
+	
+	return newPoints;
+}
+
 void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &object) {
 	int version = 1;
 	int light = 2;
@@ -41,7 +74,6 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 		glBindBuffer(GL_ARRAY_BUFFER, object.VBO_triangles);
 		glBufferData(GL_ARRAY_BUFFER, object.Triangles.size() * sizeof(float),
 					 object.Triangles.data(), GL_STATIC_DRAW);
-		draw(object);
 
 		drawSliderMenu(window);
 
