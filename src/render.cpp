@@ -11,33 +11,66 @@
 #include "includes/slider.hpp"
 
 
+class Cube
+{
+	public: 
+		glm::vec3 _rotationPoint;
+		std::vector<glm::vec3> _points;
+		std::vector<glm ::ivec3> _triangles;
+		std::vector<Cube> _cubes;
+
+		Cube();
+		~Cube();
+		void generateCube();
+};
 
 
+void Cube::generateCube()
+{
+	_points.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+	_points.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
+	_points.push_back(glm::vec3(1.0f, 1.0f, 0.0f));
+	_points.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
+	_points.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
+	_points.push_back(glm::vec3(1.0f, 0.0f, 1.0f));
+	_points.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	_points.push_back(glm::vec3(0.0f, 1.0f, 1.0f));
+
+	_triangles.push_back(glm::ivec3(0, 1, 2));
+	_triangles.push_back(glm::ivec3(0, 2, 3));
+	_triangles.push_back(glm::ivec3(4, 5, 6));
+	_triangles.push_back(glm::ivec3(4, 6, 7));
+	_triangles.push_back(glm::ivec3(0, 1, 5));
+	_triangles.push_back(glm::ivec3(0, 5, 4));
+	_triangles.push_back(glm::ivec3(1, 2, 6));
+	_triangles.push_back(glm::ivec3(1, 6, 5));
+	_triangles.push_back(glm::ivec3(2, 3, 7));
+	_triangles.push_back(glm::ivec3(2, 7, 6));
+	_triangles.push_back(glm::ivec3(3, 0, 4));
+	_triangles.push_back(glm::ivec3(3, 4, 7));
+}
+
+Cube::Cube()
+{
+	generateCube();
+}
 
 
+Cube::~Cube()
+{
+}
+
+std::vector<float> transformVectorToFloat(Cube &human)
+{
+	std::vector<float> points;
 
 
+	return points;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-std::vector<float> humanGLLogic(Object &object) {
+std::vector<float> humanGLLogic(Object &object, Cube &human) {
 	std::vector<float> newPoints;
+	object.Triangles.clear();
 	
 	
 	return newPoints;
@@ -48,6 +81,7 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 	int light = 2;
 	int prevTex = -1;
 	glm::vec3 color(1.0f, 0.0f, 0.0f);
+	Cube human;
 	while (!glfwWindowShouldClose(window)) {
 		createTexture(object, prevTex);
 		camera.fps(camera);
@@ -59,18 +93,7 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 		shader.setPerspective(camera, shader);
 		shader.setView(camera, shader);
 		draw(object);
-		static int x = 0;
-		if (x < 1) {
-			size_t cubesize = object.Triangles.size();
-			for (int i = 0; i < cubesize; i++) {
-					object.Triangles.push_back(object.Triangles[i] + 2.0);
-				std::cout << object.Triangles[i] << std::endl;
-				if (i != 0 && i % 4 == 0) {
-					// std::cout << std::endl;
-				}
-			}
-			x++;
-		}
+		object.Triangles = humanGLLogic(object, human);
 		glBindBuffer(GL_ARRAY_BUFFER, object.VBO_triangles);
 		glBufferData(GL_ARRAY_BUFFER, object.Triangles.size() * sizeof(float),
 					 object.Triangles.data(), GL_STATIC_DRAW);
