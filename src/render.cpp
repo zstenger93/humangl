@@ -27,12 +27,13 @@ class Cube
 		~Cube();
 		void generateCube();
 		std::vector<Cube> recusiveCubes();
-		void renderHuman();
 		void cubeSelectIVec();
 		Cube(Cube &parentCube, glm::vec3 parentCubeAttachmentPoint, glm::vec3 childCubeAttachmentPoint);
 		void moveCube(glm::vec3 translation);
 		void resize(float size);
 		void translateCoordinates();
+		void rotateCube(glm::vec3 angle, glm::vec3& initialRotationPoint);
+		void rotateCubeHelper(glm::vec3 angle, glm::vec3& initialRotationPoint);
 };
 
 void Cube::generateCube()
@@ -187,7 +188,6 @@ std::vector<float> humanGLLogic(Object &object, Cube &human) {
 	return newPoints;
 }
 
-
 void rotatePoint(glm::vec3 &point, glm::vec3 angle, glm::vec3 &rotationPoint) {
     float x, y, z, temp_y, temp_x, temp_z;
     point -= rotationPoint;
@@ -217,11 +217,26 @@ void rotatePoint(glm::vec3 &point, glm::vec3 angle, glm::vec3 &rotationPoint) {
 }
 
 
+void Cube::rotateCube(glm::vec3 angle, glm::vec3& initialRotationPoint) {
+	for (auto &point : _points) {
+		rotatePoint(point, angle, initialRotationPoint);
+	}
+	for (auto &cube : _cubes) {
+		cube.rotateCube(angle, initialRotationPoint);
+	}
+}
 
-
-void Cube::renderHuman()
+void Cube::rotateCubeHelper(glm::vec3 angle, glm::vec3& initialRotationPoint)
 {
+	glm::vec3 trnaslationChild = translateAttachmentPointToCoordinate(*this, _rotationPoint);
+	rotateCube(angle, trnaslationChild);
+	translateCoordinates();
+}
 
+
+void renderHuman(Cube &human)
+{
+	human._cubes[0].rotateCubeHelper(glm::vec3(0.0f, 1.0f, 0.0f), human._cubes[0]._rotationPoint);
 }
 
 void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &object) {
@@ -248,6 +263,8 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 	human._cubes.push_back(head);
 	human._cubes.push_back(leftLeg);
 	human._cubes.push_back(rightLeg);
+	human.resize(2.0f);
+	// human._cubes[0].rotateCube(glm::vec3(0.0f, 0.0f, 90.0f), human._cubes[0]._rotationPoint);
 	while (!glfwWindowShouldClose(window)) {
 		createTexture(object, prevTex);
 		camera.fps(camera);
@@ -259,7 +276,7 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 		shader.setPerspective(camera, shader);
 		shader.setView(camera, shader);
 		draw(object);
-		human.renderHuman();
+		renderHuman(human);
 		object.Triangles = humanGLLogic(object, human);
 		glBindBuffer(GL_ARRAY_BUFFER, object.VBO_triangles);
 		glBufferData(GL_ARRAY_BUFFER, object.Triangles.size() * sizeof(float),
