@@ -18,10 +18,11 @@ class Cube
 		std::vector<glm::vec3> _points;
 		std::vector<glm ::ivec3> _triangles;
 		std::vector<Cube> _cubes;
-
+		glm::vec3 _parentCubeAttachmentPoint;
 		Cube();
 		~Cube();
 		void generateCube();
+		std::vector<Cube> recusiveCubes();
 };
 
 
@@ -35,7 +36,6 @@ void Cube::generateCube()
 	_points.push_back(glm::vec3(1.0f, 0.0f, 1.0f));
 	_points.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
 	_points.push_back(glm::vec3(0.0f, 1.0f, 1.0f));
-
 	_triangles.push_back(glm::ivec3(0, 1, 2));
 	_triangles.push_back(glm::ivec3(0, 2, 3));
 	_triangles.push_back(glm::ivec3(4, 5, 6));
@@ -50,6 +50,16 @@ void Cube::generateCube()
 	_triangles.push_back(glm::ivec3(3, 4, 7));
 }
 
+std::vector<Cube> Cube::recusiveCubes() {
+  std::vector<Cube> tempCubes;
+  tempCubes.push_back(*this); 
+  for (unsigned long i = 0; i < _cubes.size(); i++) {
+    std::vector<Cube> temp = _cubes[i].recusiveCubes();
+    tempCubes.insert(tempCubes.end(), temp.begin(), temp.end());
+  }
+  return tempCubes;
+}
+
 Cube::Cube()
 {
 	generateCube();
@@ -60,19 +70,46 @@ Cube::~Cube()
 {
 }
 
-std::vector<float> transformVectorToFloat(Cube &human)
+
+
+std::vector<float> transformVectorToFloat(std::vector<Cube> cubes)
 {
 	std::vector<float> points;
+	for (unsigned long i = 0; i < cubes.size(); i++)
+	{
+		for (unsigned long j = 0; j < cubes[i]._triangles.size(); j++)
+		{
+			glm::ivec3 triangle = cubes[i]._triangles[j];
+			glm::vec3 vertex1 = cubes[i]._points[triangle.x];
+			glm::vec3 vertex2 = cubes[i]._points[triangle.y];
+			glm::vec3 vertex3 = cubes[i]._points[triangle.z];
 
-
+			// Push the vertices into the points vector
+			points.push_back(vertex1.x);
+			points.push_back(vertex1.y);
+			points.push_back(vertex1.z);
+			points.push_back(0.5);
+			points.push_back(0.5);
+			points.push_back(vertex2.x);
+			points.push_back(vertex2.y);
+			points.push_back(vertex2.z);
+			points.push_back(0.5);
+			points.push_back(0.5);
+			points.push_back(vertex3.x);
+			points.push_back(vertex3.y);
+			points.push_back(vertex3.z);
+			points.push_back(0.5);
+			points.push_back(0.5);
+		}
+	}
 	return points;
 }
 
 std::vector<float> humanGLLogic(Object &object, Cube &human) {
 	std::vector<float> newPoints;
 	object.Triangles.clear();
-	
-	
+	std::vector<Cube> listOfCubes = human.recusiveCubes();
+	newPoints = transformVectorToFloat(listOfCubes);
 	return newPoints;
 }
 
