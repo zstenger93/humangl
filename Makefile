@@ -1,6 +1,6 @@
 NAME = scop
 CFLAGS =  -Wno-deprecated-declarations -Wno-macro-redefined -Wno-c++11-extensions -std=c++11
-GLFW = -I/Users/${USER}/.brew/Cellar/glfw/3.3.8/include -L/Users/${USER}/.brew/Cellar/glfw/3.3.8/lib -lglfw -framework OpenGL -framework CoreGraphics -framework CoreFoundation
+GLFW = -I/Users/${USER}/.brew/Cellar/glfw/3.4/include -L/Users/${USER}/.brew/Cellar/glfw/3.4/lib -lglfw -framework OpenGL -framework CoreGraphics -framework CoreFoundation
 GLEW = -I/Users/${USER}/.brew/Cellar/glew/2.2.0_1/include -L/Users/${USER}/.brew/Cellar/glew/2.2.0_1/lib -lGLEW -framework OpenGL
 
 GLAD = glad.o
@@ -9,11 +9,11 @@ GLADLIB = gcc -c src/includes/glad/glad.c -Ilibs
 EXEC = ./scop
 
 # Vertex and Fragment shader source files
-VERTEX_SOURCE = ../src/shader/vertexSource.vertex
-FRAGMENT_SOURCE = ../src/shader/fragmentSource.fragment
+VERTEX_SOURCE = src/shader/vertexSource.vertex
+FRAGMENT_SOURCE = src/shader/fragmentSource.fragment
 
 RS = ../resources/
-TX = ../textures/
+TX = textures/
 
 # Texture files
 TEXTURE_OK = ${TX}ok.jpeg

@@ -31,9 +31,9 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 			size_t cubesize = object.Triangles.size();
 			for (int i = 0; i < cubesize; i++) {
 					object.Triangles.push_back(object.Triangles[i] + 2.0);
-				std::cout << object.Triangles[i] << " ";
+				std::cout << object.Triangles[i] << std::endl;
 				if (i != 0 && i % 4 == 0) {
-					std::cout << std::endl;
+					// std::cout << std::endl;
 				}
 			}
 			x++;
