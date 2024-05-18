@@ -229,13 +229,7 @@ void renderHuman(Cube &human)
 	return ;
 }
 
-
-void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &object) {
-	int version = 1;
-	int light = 2;
-	int prevTex = -1;
-	glm::vec3 color(1.0f, 0.0f, 0.0f);
-	Cube human;
+void initHuman(Cube &human) {
 	Cube leftArm(human, 3, 7, 2, 6);
 	Cube rightArm(human, 2, 6, 3, 7);
 	Cube head(human, 3, 6, 0, 5);
@@ -254,6 +248,16 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 	human._cubes.push_back(head);
 	human._cubes.push_back(rightLeg);
 	human._cubes.push_back(leftLeg);
+
+}
+
+void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &object) {
+	int version = 1;
+	int light = 2;
+	int prevTex = -1;
+	glm::vec3 color(1.0f, 0.0f, 0.0f);
+	Cube human;
+	initHuman(human);
 	while (!glfwWindowShouldClose(window)) {
 		createTexture(object, prevTex);
 		camera.fps(camera);
