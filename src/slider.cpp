@@ -15,7 +15,7 @@ void initSliderValues(Slider &slider) {
 	slider.sliderBaseValue = 1;
 }
 
-void drawSliderMenu(GLFWwindow *window) {
+void drawSliderMenu(GLFWwindow *window, Cube &human) {
 	Slider slider;
 	const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 

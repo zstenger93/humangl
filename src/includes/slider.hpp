@@ -2,6 +2,7 @@
 #define SLIDER_HPP
 
 #include "headers.hpp"
+#include "cube.hpp"
 
 #define CHAR_PIXEL_SIZE 8
 
@@ -18,7 +19,7 @@ void initSliderValues(Slider &slider);
 
 void setImGuiStyle();
 
-void drawSliderMenu(GLFWwindow *window);
+void drawSliderMenu(GLFWwindow *window, Cube &human);
 void drawHeadSlider(Slider &slider);
 
 void drawBodySlider(Slider &slider);

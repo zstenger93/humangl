@@ -70,6 +70,7 @@ SRC = scop \
 	  shader/shader \
 	  processObjFile \
 	  slider \
+	  cube \
 
 # Imgui source files to compile
 IMGUI =	includes/imgui/imgui \
