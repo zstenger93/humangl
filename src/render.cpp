@@ -17,7 +17,7 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 	glm::vec3 color(1.0f, 0.0f, 0.0f);
 	Cube human;
 	initHuman(human);
-	human.resizeCube(3.0f);
+	humanSettings(human);
 	while (!glfwWindowShouldClose(window)) {
 		createTexture(object, prevTex);
 		camera.fps(camera);

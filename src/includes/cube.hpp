@@ -24,7 +24,8 @@ class Cube
 		void rotateCube(glm::vec3 angle, glm::vec3 &rotationPoint);
 		void rotateCubeHelper(glm::vec3 angle);
 		void resizeCube(float scale);
-        
+		void centerCube();
+		void resizeCubeHelper();
 };
 
 glm::vec3 calculateCenter(glm::vec3 &point1, glm::vec3 &point2);
@@ -34,5 +35,6 @@ std::vector<float> humanGLLogic(Object &object, Cube &human);
 void rotatePoint(glm::vec3 &point, glm::vec3 angle, glm::vec3 &rotationPoint);
 void renderHuman(Cube &human);
 void initHuman(Cube &human);
+void humanSettings(Cube &human);
 
 #endif

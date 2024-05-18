@@ -96,16 +96,39 @@ glm::vec3 Cube::calculateTranslationCube()
 	return translation;
 }
 
+void Cube::centerCube()
+{
+	if (_parentCube == nullptr) {
+		glm::vec3 center = glm::vec3(0.0f, 0.0f, 0.0f);
+		moveCube(calculateTranslation(center, calculateCenter(_points[_childCubeAttachmentPoint1Index], _points[_childCubeAttachmentPoint2Index])));
+		return ;
+	}
+}
+
+void Cube::resizeCubeHelper()
+{
+	if (_cubes.size() == 0)
+		return ;
+	glm::vec3 bodyPart = calculateTranslationCube();
+	moveCube(bodyPart);
+}
+
+
 void Cube::resizeCube(float scale)
 {
 	for (unsigned long i = 0; i < _points.size(); i++)
 	{
 		_points[i] *= scale;
 	}
-	moveCube(calculateTranslationCube());
-	for (auto &cube: _cubes)
+	if (_parentCube != nullptr)
 	{
-		cube.moveCube(cube.calculateTranslationCube());
+		resizeCubeHelper();
+	}
+	else {
+		for (auto &cube: _cubes)
+		{
+			cube.resizeCubeHelper();
+		}
 	}
 }
 
@@ -210,7 +233,7 @@ void Cube::rotateCubeHelper(glm::vec3 angle)
 
 void renderHuman(Cube &human)
 {
-	human._cubes[0]._cubes[0].rotateCubeHelper(glm::vec3(0.0f, 0.0f, 1.0f));
+	//human._cubes[0]._cubes[0].rotateCubeHelper(glm::vec3(0.0f, 0.0f, 1.0f));
 	human._cubes[0].rotateCubeHelper(glm::vec3(0.0f, 1.0f, 0.0f));
 	return ;
 }
@@ -234,4 +257,10 @@ void initHuman(Cube &human) {
 	human._cubes.push_back(head);
 	human._cubes.push_back(rightLeg);
 	human._cubes.push_back(leftLeg);
+}
+
+void humanSettings(Cube &human) {
+	human.centerCube();
+	human.resizeCube(2.0f);
+	human._cubes[0].resizeCube(0.5f);
 }
