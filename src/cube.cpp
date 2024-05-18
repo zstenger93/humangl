@@ -261,6 +261,6 @@ void initHuman(Cube &human) {
 
 void humanSettings(Cube &human) {
 	human.centerCube();
-	human.resizeCube(2.0f);
-	human._cubes[0].resizeCube(0.5f);
+	// human.resizeCube(2.0f);
+	//human._cubes[0].resizeCube(0.5f);
 }
