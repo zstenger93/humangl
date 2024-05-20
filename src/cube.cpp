@@ -121,7 +121,7 @@ void Cube::moveCube(glm::vec3 translation)
 
 void Cube::resizeCubeHelper()
 {
-	calculateTranslationCube();
+	moveCube(calculateTranslationCube());
 	for (auto &cube: _cubes)
 	{
 		cube->resizeCubeHelper();
@@ -258,7 +258,7 @@ void initHuman(Cube &human) {
 void humanSettings(Cube &human) {
 	human.centerCube();
 	human.resizeCube(glm::vec3(2.0f, 2.0f, 2.0f));
-	human._cubes[0]->resizeCube(glm::vec3(2.0f, 2.0f, 2.0f));
+	human._cubes[0]->resizeCube(glm::vec3(1.0f, 2.0f, 2.0f));
 	human._cubes[0]->_cubes[0]->resizeCube(glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
