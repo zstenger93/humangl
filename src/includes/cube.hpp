@@ -14,6 +14,7 @@ class Cube
 		int _parentCubeAttachmentPoint2Index;
 		int _childCubeAttachmentPoint1Index;
 		int _childCubeAttachmentPoint2Index;
+		int _animationMode;
 		Cube();
 		~Cube();
 		void generateCube();
@@ -37,5 +38,7 @@ void renderHuman(Cube &human);
 void initHuman(Cube &human);
 void humanSettings(Cube &human);
 void clearLeaks(Cube &human);
+void walk(Cube &human, int i);
+void run(Cube &human, int i);
 
 #endif
