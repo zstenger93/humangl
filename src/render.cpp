@@ -36,9 +36,9 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 					 object.Triangles.data(), GL_STATIC_DRAW);
 
 		drawSliderMenu(window, human);
-
 		renderText(window, object, color);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+	clearLeaks(human);
 }

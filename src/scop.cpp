@@ -32,6 +32,7 @@ int main(int argc, char **argv) {
 	createVaoVbo(object);
 	renderingLoop(window, shader, camera, object);
 	cleanUp(object);
+	system("leaks scop");
 	return 0;
 }
 

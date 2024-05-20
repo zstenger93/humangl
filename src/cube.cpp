@@ -46,7 +46,7 @@ std::vector<Cube> Cube::recusiveCubes() {
   std::vector<Cube> tempCubes;
   tempCubes.push_back(*this); 
   for (unsigned long i = 0; i < _cubes.size(); i++) {
-    std::vector<Cube> temp = _cubes[i].recusiveCubes();
+    std::vector<Cube> temp = _cubes[i]->recusiveCubes();
     tempCubes.insert(tempCubes.end(), temp.begin(), temp.end());
   }
   return tempCubes;
@@ -60,6 +60,7 @@ Cube::Cube()
 	_parentCubeAttachmentPoint2Index = 6;
 	_parentCube = nullptr;
 }
+
 
 Cube::~Cube()
 {
@@ -105,32 +106,6 @@ void Cube::centerCube()
 	}
 }
 
-void Cube::resizeCubeHelper()
-{
-	if (_cubes.size() == 0)
-		return ;
-	glm::vec3 bodyPart = calculateTranslationCube();
-	moveCube(bodyPart);
-}
-
-
-void Cube::resizeCube(float scale)
-{
-	for (unsigned long i = 0; i < _points.size(); i++)
-	{
-		_points[i] *= scale;
-	}
-	if (_parentCube != nullptr)
-	{
-		resizeCubeHelper();
-	}
-	else {
-		for (auto &cube: _cubes)
-		{
-			cube.resizeCubeHelper();
-		}
-	}
-}
 
 void Cube::moveCube(glm::vec3 translation)
 {
@@ -140,8 +115,29 @@ void Cube::moveCube(glm::vec3 translation)
 	}
 	for (auto &cube: _cubes)
 	{
-		cube.moveCube(translation);
+		cube->moveCube(translation);
 	}
+}
+
+void Cube::resizeCubeHelper()
+{
+	calculateTranslationCube();
+	for (auto &cube: _cubes)
+	{
+		cube->resizeCubeHelper();
+	}
+}
+
+
+void Cube::resizeCube(glm::vec3 scale)
+{
+	for (unsigned long i = 0; i < _points.size(); i++)
+	{
+		_points[i].x *= scale.x;
+		_points[i].y *= scale.y;
+		_points[i].z *= scale.z;
+	}
+	resizeCubeHelper();
 }
 
 
@@ -220,7 +216,7 @@ void Cube::rotateCube(glm::vec3 angle, glm::vec3 &rotationPoint)
 	}
 	for (auto &cube: _cubes)
 	{
-		cube.rotateCube(angle, rotationPoint);
+		cube->rotateCube(angle, rotationPoint);
 	}
 }
 
@@ -234,33 +230,44 @@ void Cube::rotateCubeHelper(glm::vec3 angle)
 void renderHuman(Cube &human)
 {
 	//human._cubes[0]._cubes[0].rotateCubeHelper(glm::vec3(0.0f, 0.0f, 1.0f));
-	human._cubes[0].rotateCubeHelper(glm::vec3(0.0f, 1.0f, 0.0f));
+	human._cubes[0]->rotateCubeHelper(glm::vec3(0.0f, 1.0f, 0.0f));
 	return ;
 }
 
 void initHuman(Cube &human) {
-	Cube leftArm(human, 3, 7, 2, 6);
-	Cube rightArm(human, 2, 6, 3, 7);
-	Cube head(human, 3, 6, 0, 5);
-	Cube rightLeg(human, 0, 5, 3, 7);
-	Cube leftLeg(human, 0, 5, 2, 6);
-	Cube leftShin(leftLeg, 0, 5, 3, 6);
-	Cube rightShin(rightLeg, 0, 5, 3, 6);
-	Cube leftForeArm(leftArm, 0, 7, 1, 6);
-	Cube rightForeArm(rightArm, 1, 6, 0, 7);
-	leftArm._cubes.push_back(leftForeArm);
-	rightArm._cubes.push_back(rightForeArm);
-	leftLeg._cubes.push_back(leftShin);
-	rightLeg._cubes.push_back(rightShin);
-	human._cubes.push_back(leftArm);
-	human._cubes.push_back(rightArm);
-	human._cubes.push_back(head);
-	human._cubes.push_back(rightLeg);
-	human._cubes.push_back(leftLeg);
+    Cube* leftArm = new Cube(human, 3, 7, 2, 6);
+    Cube* rightArm = new Cube(human, 2, 6, 3, 7);
+    Cube* head = new Cube(human, 3, 6, 0, 5);
+    Cube* rightLeg = new Cube(human, 0, 5, 3, 7);
+    Cube* leftLeg = new Cube(human, 0, 5, 2, 6);
+    Cube* leftShin = new Cube(*leftLeg, 0, 5, 3, 6);
+    Cube* rightShin = new Cube(*rightLeg, 0, 5, 3, 6);
+    Cube* leftForeArm = new Cube(*leftArm, 0, 7, 1, 6);
+    Cube* rightForeArm = new Cube(*rightArm, 1, 6, 0, 7);
+    leftArm->_cubes.push_back(leftForeArm);
+    rightArm->_cubes.push_back(rightForeArm);
+    leftLeg->_cubes.push_back(leftShin);
+    rightLeg->_cubes.push_back(rightShin);
+    human._cubes.push_back(leftArm);
+    human._cubes.push_back(rightArm);
+    human._cubes.push_back(head);
+    human._cubes.push_back(rightLeg);
+    human._cubes.push_back(leftLeg);
 }
 
 void humanSettings(Cube &human) {
 	human.centerCube();
-	// human.resizeCube(2.0f);
-	//human._cubes[0].resizeCube(0.5f);
+	human.resizeCube(glm::vec3(2.0f, 2.0f, 2.0f));
+	human._cubes[0]->resizeCube(glm::vec3(2.0f, 2.0f, 2.0f));
+	human._cubes[0]->_cubes[0]->resizeCube(glm::vec3(1.0f, 1.0f, 1.0f));
 }
+
+void clearLeaks(Cube &human)
+{
+	for (auto &cube: human._cubes)
+	{
+		clearLeaks(*cube);
+		delete cube;
+	}
+}
+

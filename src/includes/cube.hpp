@@ -8,7 +8,7 @@ class Cube
 	public: 
 		std::vector<glm::vec3> _points;
 		std::vector<glm ::ivec3> _triangles;
-		std::vector<Cube> _cubes;
+		std::vector<Cube*> _cubes;
 		Cube *_parentCube;
 		int _parentCubeAttachmentPoint1Index;
 		int _parentCubeAttachmentPoint2Index;
@@ -23,7 +23,7 @@ class Cube
 		glm::vec3 calculateTranslationCube();
 		void rotateCube(glm::vec3 angle, glm::vec3 &rotationPoint);
 		void rotateCubeHelper(glm::vec3 angle);
-		void resizeCube(float scale);
+		void resizeCube(glm::vec3 scale);
 		void centerCube();
 		void resizeCubeHelper();
 };
@@ -36,5 +36,6 @@ void rotatePoint(glm::vec3 &point, glm::vec3 angle, glm::vec3 &rotationPoint);
 void renderHuman(Cube &human);
 void initHuman(Cube &human);
 void humanSettings(Cube &human);
+void clearLeaks(Cube &human);
 
 #endif
