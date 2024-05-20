@@ -22,6 +22,8 @@ int main(int argc, char **argv) {
 	processObjFile(argv[3], object);
 	saveTextures(object, argv);
 
+	// object.Triangles
+
 	GLFWwindow *window = createWindow(object);
 	Shader shader(argv[1], argv[2]);
 
@@ -30,6 +32,7 @@ int main(int argc, char **argv) {
 	createVaoVbo(object);
 	renderingLoop(window, shader, camera, object);
 	cleanUp(object);
+	system("leaks scop");
 	return 0;
 }
 

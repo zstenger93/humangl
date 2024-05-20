@@ -15,6 +15,9 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 	int light = 2;
 	int prevTex = -1;
 	glm::vec3 color(1.0f, 0.0f, 0.0f);
+	Cube human;
+	initHuman(human);
+	humanSettings(human);
 	while (!glfwWindowShouldClose(window)) {
 		createTexture(object, prevTex);
 		camera.fps(camera);
@@ -26,27 +29,16 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 		shader.setPerspective(camera, shader);
 		shader.setView(camera, shader);
 		draw(object);
-		static int x = 0;
-		if (x < 1) {
-			size_t cubesize = object.Triangles.size();
-			for (int i = 0; i < cubesize; i++) {
-					object.Triangles.push_back(object.Triangles[i] + 2.0);
-				std::cout << object.Triangles[i] << " ";
-				if (i != 0 && i % 4 == 0) {
-					std::cout << std::endl;
-				}
-			}
-			x++;
-		}
+		renderHuman(human);
+		object.Triangles = humanGLLogic(object, human);
 		glBindBuffer(GL_ARRAY_BUFFER, object.VBO_triangles);
 		glBufferData(GL_ARRAY_BUFFER, object.Triangles.size() * sizeof(float),
 					 object.Triangles.data(), GL_STATIC_DRAW);
-		draw(object);
 
-		drawSliderMenu(window);
-
+		drawSliderMenu(window, human);
 		renderText(window, object, color);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+	clearLeaks(human);
 }

@@ -28,7 +28,7 @@ void initObject(Object &object) {
 
 void loadFromObjFile(const std::string &filePath, Object &object) {
 	std::string line;
-	std::ifstream objFile(filePath);
+	std::ifstream objFile("resources/human.obj");
 	if (!objFile.is_open()) {
 		std::cerr << "Error opening the file: " << filePath << std::endl;
 		return;
@@ -73,7 +73,7 @@ void initMtl(Object &object) {
 void saveMtlAttributes(Object &object, std::istringstream &stream, std::string &prefix,
 					   std::string fileName) {
 	stream >> fileName;
-	std::string mLine, file = "../resources/" + fileName;
+	std::string mLine, file = "resources/" + fileName;
 	std::ifstream mtlFile(file);
 	if (mtlFile.is_open()) {
 		while (std::getline(mtlFile, mLine)) {
