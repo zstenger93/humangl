@@ -74,6 +74,8 @@ void setImGuiStyle() {
 
 void drawHeadSlider(Cube &human, Slider &headSlider) {
 	ImGui::BeginChild("Head", ImVec2(135, 120), true);
+	double initialY = headSlider.sliderBaseValue.y, initialX = headSlider.sliderBaseValue.x,
+		   initialZ = headSlider.sliderBaseValue.z;
 	const char *text = "Head";
 	headSlider.childWidth = ImGui::GetContentRegionAvail().x;
 	headSlider.textWidth = ImGui::CalcTextSize(text).x;
@@ -103,6 +105,11 @@ void drawHeadSlider(Cube &human, Slider &headSlider) {
 	ImGui::PopItemWidth();
 
 	ImGui::EndChild();
+	if (initialY != headSlider.sliderBaseValue.y || initialX != headSlider.sliderBaseValue.x ||
+		initialZ != headSlider.sliderBaseValue.z) {
+		human._cubes[4]->resizeCube(glm::vec3(headSlider.sliderBaseValue.x, headSlider.sliderBaseValue.y,
+								   headSlider.sliderBaseValue.z));
+	}
 }
 
 void drawBodySlider(Cube &human, Slider &bodySlider, Slider &headSlider) {
