@@ -113,6 +113,8 @@ void drawHeadSlider(Cube &human, Slider &headSlider) {
 }
 
 void drawBodySlider(Cube &human, Slider &bodySlider, Slider &headSlider) {
+	double initialY = bodySlider.sliderBaseValue.y, initialX = bodySlider.sliderBaseValue.x,
+		   initialZ = bodySlider.sliderBaseValue.z;
 	ImGui::BeginChild("Body", ImVec2(135, 120), true);
 	const char *text = "Body";
 	bodySlider.childWidth = ImGui::GetContentRegionAvail().x;
@@ -143,9 +145,16 @@ void drawBodySlider(Cube &human, Slider &bodySlider, Slider &headSlider) {
 	ImGui::PopItemWidth();
 
 	ImGui::EndChild();
+	if (initialY != bodySlider.sliderBaseValue.y || initialX != bodySlider.sliderBaseValue.x ||
+		initialZ != bodySlider.sliderBaseValue.z) {
+		human._cubes[0]->resizeCube(glm::vec3(bodySlider.sliderBaseValue.x, bodySlider.sliderBaseValue.y,
+								   bodySlider.sliderBaseValue.z));
+	}
 }
 
 void drawLeftUpperArmSlider(Cube &human, Slider &leftUpperArmSlider, Slider &headSlider) {
+	double initialY = leftUpperArmSlider.sliderBaseValue.y, initialX = leftUpperArmSlider.sliderBaseValue.x,
+		   initialZ = leftUpperArmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftUpperArm", ImVec2(135, 120), true);
 	const char *text = "Left Upper Arm";
 	leftUpperArmSlider.childWidth = ImGui::GetContentRegionAvail().x;
@@ -178,9 +187,17 @@ void drawLeftUpperArmSlider(Cube &human, Slider &leftUpperArmSlider, Slider &hea
 	ImGui::PopItemWidth();
 
 	ImGui::EndChild();
+	if (initialY != leftUpperArmSlider.sliderBaseValue.y || initialX != leftUpperArmSlider.sliderBaseValue.x ||
+		initialZ != leftUpperArmSlider.sliderBaseValue.z) {
+		human._cubes[1]->resizeCube(glm::vec3(leftUpperArmSlider.sliderBaseValue.x,
+								   leftUpperArmSlider.sliderBaseValue.y,
+								   leftUpperArmSlider.sliderBaseValue.z));
+	}
 }
 
 void drawLeftForearmSlider(Cube &human, Slider &leftForearmSlider, Slider &headSlider) {
+	double initialY = leftForearmSlider.sliderBaseValue.y, initialX = leftForearmSlider.sliderBaseValue.x,
+		   initialZ = leftForearmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftForearm", ImVec2(135, 120), true);
 	const char *text = "Left Forearm";
 	leftForearmSlider.childWidth = ImGui::GetContentRegionAvail().x;
@@ -211,9 +228,17 @@ void drawLeftForearmSlider(Cube &human, Slider &leftForearmSlider, Slider &headS
 	ImGui::PopItemWidth();
 
 	ImGui::EndChild();
+	if (initialY != leftForearmSlider.sliderBaseValue.y || initialX != leftForearmSlider.sliderBaseValue.x ||
+		initialZ != leftForearmSlider.sliderBaseValue.z) {
+		human._cubes[2]->resizeCube(glm::vec3(leftForearmSlider.sliderBaseValue.x,
+								   leftForearmSlider.sliderBaseValue.y,
+								   leftForearmSlider.sliderBaseValue.z));
+	}
 }
 
 void drawRightUpperArmSlider(Cube &human, Slider &rightUpperArmSlider, Slider &headSlider) {
+	double initialY = rightUpperArmSlider.sliderBaseValue.y, initialX = rightUpperArmSlider.sliderBaseValue.x,
+		   initialZ = rightUpperArmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightUpperArm", ImVec2(135, 120), true);
 	const char *text = "Right Upper Arm";
 	rightUpperArmSlider.childWidth = ImGui::GetContentRegionAvail().x;
@@ -247,9 +272,17 @@ void drawRightUpperArmSlider(Cube &human, Slider &rightUpperArmSlider, Slider &h
 	ImGui::PopItemWidth();
 
 	ImGui::EndChild();
+	if (initialY != rightUpperArmSlider.sliderBaseValue.y || initialX != rightUpperArmSlider.sliderBaseValue.x ||
+		initialZ != rightUpperArmSlider.sliderBaseValue.z) {
+		human._cubes[3]->resizeCube(glm::vec3(rightUpperArmSlider.sliderBaseValue.x,
+								   rightUpperArmSlider.sliderBaseValue.y,
+								   rightUpperArmSlider.sliderBaseValue.z));
+	}
 }
 
 void drawRightForearmSlider(Cube &human, Slider &rightForearmSlider, Slider &headSlider) {
+	double initialY = rightForearmSlider.sliderBaseValue.y, initialX = rightForearmSlider.sliderBaseValue.x,
+		   initialZ = rightForearmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightForearm", ImVec2(135, 120), true);
 	const char *text = "Right Forearm";
 	rightForearmSlider.childWidth = ImGui::GetContentRegionAvail().x;
@@ -282,9 +315,17 @@ void drawRightForearmSlider(Cube &human, Slider &rightForearmSlider, Slider &hea
 	ImGui::PopItemWidth();
 
 	ImGui::EndChild();
+	if (initialY != rightForearmSlider.sliderBaseValue.y || initialX != rightForearmSlider.sliderBaseValue.x ||
+		initialZ != rightForearmSlider.sliderBaseValue.z) {
+		human._cubes[5]->resizeCube(glm::vec3(rightForearmSlider.sliderBaseValue.x,
+								   rightForearmSlider.sliderBaseValue.y,
+								   rightForearmSlider.sliderBaseValue.z));
+	}
 }
 
 void drawLeftThighSlider(Cube &human, Slider &leftThighSlider, Slider &headSlider) {
+	double initialY = leftThighSlider.sliderBaseValue.y, initialX = leftThighSlider.sliderBaseValue.x,
+		   initialZ = leftThighSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftThigh", ImVec2(135, 120), true);
 	const char *text = "Left Thigh";
 	leftThighSlider.childWidth = ImGui::GetContentRegionAvail().x;
@@ -315,9 +356,17 @@ void drawLeftThighSlider(Cube &human, Slider &leftThighSlider, Slider &headSlide
 	ImGui::PopItemWidth();
 
 	ImGui::EndChild();
+	if (initialY != leftThighSlider.sliderBaseValue.y || initialX != leftThighSlider.sliderBaseValue.x ||
+		initialZ != leftThighSlider.sliderBaseValue.z) {
+		human._cubes[6]->resizeCube(glm::vec3(leftThighSlider.sliderBaseValue.x,
+								   leftThighSlider.sliderBaseValue.y,
+								   leftThighSlider.sliderBaseValue.z));
+	}
 }
 
 void drawLeftLowerLegSlider(Cube &human, Slider &leftLowerLegSlider, Slider &headSlider) {
+	double initialY = leftLowerLegSlider.sliderBaseValue.y, initialX = leftLowerLegSlider.sliderBaseValue.x,
+		   initialZ = leftLowerLegSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftLowerLeg", ImVec2(135, 120), true);
 	const char *text = "Left Lower Leg";
 	leftLowerLegSlider.childWidth = ImGui::GetContentRegionAvail().x;
@@ -350,9 +399,17 @@ void drawLeftLowerLegSlider(Cube &human, Slider &leftLowerLegSlider, Slider &hea
 	ImGui::PopItemWidth();
 
 	ImGui::EndChild();
+	if (initialY != leftLowerLegSlider.sliderBaseValue.y || initialX != leftLowerLegSlider.sliderBaseValue.x ||
+		initialZ != leftLowerLegSlider.sliderBaseValue.z) {
+		human._cubes[7]->resizeCube(glm::vec3(leftLowerLegSlider.sliderBaseValue.x,
+								   leftLowerLegSlider.sliderBaseValue.y,
+								   leftLowerLegSlider.sliderBaseValue.z));
+	}
 }
 
 void drawRightThighSlider(Cube &human, Slider &rightThighSlider, Slider &headSlider) {
+	double initialY = rightThighSlider.sliderBaseValue.y, initialX = rightThighSlider.sliderBaseValue.x,
+		   initialZ = rightThighSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightThigh", ImVec2(135, 120), true);
 	const char *text = "Right Thigh";
 	rightThighSlider.childWidth = ImGui::GetContentRegionAvail().x;
@@ -383,9 +440,17 @@ void drawRightThighSlider(Cube &human, Slider &rightThighSlider, Slider &headSli
 	ImGui::PopItemWidth();
 
 	ImGui::EndChild();
+	if (initialY != rightThighSlider.sliderBaseValue.y || initialX != rightThighSlider.sliderBaseValue.x ||
+		initialZ != rightThighSlider.sliderBaseValue.z) {
+		human._cubes[8]->resizeCube(glm::vec3(rightThighSlider.sliderBaseValue.x,
+								   rightThighSlider.sliderBaseValue.y,
+								   rightThighSlider.sliderBaseValue.z));
+	}
 }
 
 void drawRightLowerLegSlider(Cube &human, Slider &rightLowerLegSlider, Slider &headSlider) {
+	double initialY = rightLowerLegSlider.sliderBaseValue.y, initialX = rightLowerLegSlider.sliderBaseValue.x,
+		   initialZ = rightLowerLegSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightLowerLeg", ImVec2(135, 120), true);
 	const char *text = "Right Lower Leg";
 	rightLowerLegSlider.childWidth = ImGui::GetContentRegionAvail().x;
@@ -419,4 +484,10 @@ void drawRightLowerLegSlider(Cube &human, Slider &rightLowerLegSlider, Slider &h
 	ImGui::PopItemWidth();
 
 	ImGui::EndChild();
+	if (initialY != rightLowerLegSlider.sliderBaseValue.y || initialX != rightLowerLegSlider.sliderBaseValue.x ||
+		initialZ != rightLowerLegSlider.sliderBaseValue.z) {
+		human._cubes[9]->resizeCube(glm::vec3(rightLowerLegSlider.sliderBaseValue.x,
+								   rightLowerLegSlider.sliderBaseValue.y,
+								   rightLowerLegSlider.sliderBaseValue.z));
+	}
 }
