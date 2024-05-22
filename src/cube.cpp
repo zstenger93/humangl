@@ -121,10 +121,11 @@ void Cube::resizeCubeHelper() {
 
 void Cube::resizeCube(glm::vec3 scale) {
 	for (unsigned long i = 0; i < _points.size(); i++) {
-		_points[i].x *= scale.x;
-		_points[i].y *= scale.y;
-		_points[i].z *= scale.z;
+		_points[i].x *= scale.x / _baseScaleValue.x;
+		_points[i].y *= scale.y / _baseScaleValue.y;
+		_points[i].z *= scale.z / _baseScaleValue.z;
 	}
+	_baseScaleValue = scale;
 	resizeCubeHelper();
 }
 

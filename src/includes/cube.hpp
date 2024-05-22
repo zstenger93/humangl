@@ -15,6 +15,8 @@ class Cube {
 	int _childCubeAttachmentPoint1Index;
 	int _childCubeAttachmentPoint2Index;
 	int _animationMode;
+	glm::vec3 _baseScaleValue = glm::vec3(1.0f, 1.0f, 1.0f);
+	glm::vec3 _baseAngle = glm::vec3(0.0f, 0.0f, 0.0f);
 	Cube();
 	~Cube();
 	void generateCube();
