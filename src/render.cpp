@@ -16,6 +16,8 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 	int prevTex = -1;
 	glm::vec3 color(1.0f, 0.0f, 0.0f);
 	Cube human;
+	Sliders sliders;
+	
 	initHuman(human);
 	humanSettings(human);
 	while (!glfwWindowShouldClose(window)) {
@@ -34,8 +36,7 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 		glBindBuffer(GL_ARRAY_BUFFER, object.VBO_triangles);
 		glBufferData(GL_ARRAY_BUFFER, object.Triangles.size() * sizeof(float),
 					 object.Triangles.data(), GL_STATIC_DRAW);
-
-		drawSliderMenu(window, human);
+		drawSliderMenu(window, human, sliders);
 		renderText(window, object, color);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
