@@ -1,5 +1,19 @@
 <h1 align="center">📖 42 HUMANGL</h1>
 
+<h2 align="center">Supports resizing of body parts</h2>
+
+<p align="center">
+  <img src="/readme_src/resize.gif" alt="Resize">
+</p>
+
+<h2 align="center">Supports animations</h2>
+
+<p align="center">
+  <img src="/readme_src/animations.gif" alt="Animation">
+</p>
+
+<h2>READ ME FROM SCOP \></h2>
+
 <img align=center src="https://github.com/zstenger93/scop/blob/master/readme_src/nutshell.jpeg">
 
 <h2 align="center">Hierarchical modeling with OpenGL using my own matrix stack and transformations for a skeletal animation</h2>
@@ -34,8 +48,7 @@ You will also need:
 ## How to use
 
 ```
-make human
-```
+make human```
 
 ## Keys
 
