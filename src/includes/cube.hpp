@@ -21,7 +21,7 @@ class Cube {
 	~Cube();
 	void generateCube();
 	std::vector<Cube> recusiveCubes();
-	Cube(Cube &parentCube, int parentCubeAttachmentPoint1, int parentCubeAttachemntPoint2,
+	Cube(Cube *parentCube, int parentCubeAttachmentPoint1, int parentCubeAttachemntPoint2,
 		 int childCubeAttachmentPoint1, int childCubeAttachmentPoint2);
 	void moveCube(glm::vec3 translation);
 	glm::vec3 calculateTranslationCube();
@@ -30,20 +30,21 @@ class Cube {
 	void resizeCube(glm::vec3 scale);
 	void centerCube();
 	void resizeCubeHelper();
+	void resetCubeAngle(int mode);
 };
 
 glm::vec3 calculateCenter(glm::vec3 &point1, glm::vec3 &point2);
 glm::vec3 calculateTranslation(glm::vec3 point1, glm::vec3 point2);
 std::vector<float> transformVectorToFloat(std::vector<Cube> cubes);
-std::vector<float> humanGLLogic(Object &object, Cube &human);
+std::vector<float> humanGLLogic(Object &object, Cube *human);
 void rotatePoint(glm::vec3 &point, glm::vec3 angle, glm::vec3 &rotationPoint);
-void renderHuman(Cube &human);
-void initHuman(Cube &human);
-void humanSettings(Cube &human);
-void clearLeaks(Cube &human);
-void walk(Cube &human, int i);
-void run(Cube &human, int i);
-void stand(Cube &human, int i);
-void jump(Cube &human, int i);
+void renderHuman(Cube *human);
+void initHuman(Cube *human);
+void humanSettings(Cube *human);
+void clearLeaks(Cube *human);
+void walk(Cube *human, int i);
+void run(Cube *human, int i);
+void stand(Cube *human, int i);
+void jump(Cube *human, int i);
 
 #endif
