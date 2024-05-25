@@ -17,7 +17,7 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 	glm::vec3 color(1.0f, 0.0f, 0.0f);
 	Cube *human = new Cube();
 	Sliders sliders;
-	
+
 	initHuman(human);
 	humanSettings(human);
 	while (!glfwWindowShouldClose(window)) {
@@ -32,7 +32,7 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 		shader.setView(camera, shader);
 		draw(object);
 		humanAnimations(window, human);
-		object.Triangles = humanGLLogic(object, human);
+		object.Triangles = humanGLLogic(window, object, human);
 		glBindBuffer(GL_ARRAY_BUFFER, object.VBO_triangles);
 		glBufferData(GL_ARRAY_BUFFER, object.Triangles.size() * sizeof(float),
 					 object.Triangles.data(), GL_STATIC_DRAW);

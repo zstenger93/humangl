@@ -35,8 +35,8 @@ class Cube {
 
 glm::vec3 calculateCenter(glm::vec3 &point1, glm::vec3 &point2);
 glm::vec3 calculateTranslation(glm::vec3 point1, glm::vec3 point2);
-std::vector<float> transformVectorToFloat(std::vector<Cube> cubes);
-std::vector<float> humanGLLogic(Object &object, Cube *human);
+std::vector<float> transformVectorToFloat(GLFWwindow *window, std::vector<Cube> cubes);
+std::vector<float> humanGLLogic(GLFWwindow *window, Object &object, Cube *human);
 void rotatePoint(glm::vec3 &point, glm::vec3 angle, glm::vec3 &rotationPoint);
 void humanAnimations(GLFWwindow *window, Cube *human);
 void initHuman(Cube *human);
