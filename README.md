@@ -16,8 +16,6 @@
 
 [How it Looks](#how-it-looks)
 
-[Resources](#resources)
-
 ## Setup
 
 You need at least OpenGl 4
