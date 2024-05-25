@@ -6,7 +6,7 @@
 void processObjFile(const std::string &filePath, Object &object) {
 	initObject(object);
 	initMtl(object);
-	loadFromObjFile(filePath, object);
+	// loadFromObjFile(filePath, object);
 	if (object.vertices.size() == 0) return;
 	normalizeTextureCoordinates(object);
 	triangleAssembly(object);
@@ -73,7 +73,7 @@ void initMtl(Object &object) {
 void saveMtlAttributes(Object &object, std::istringstream &stream, std::string &prefix,
 					   std::string fileName) {
 	stream >> fileName;
-	std::string mLine, file = "resources/" + fileName;
+	std::string mLine, file = "resources/42.mtl";
 	std::ifstream mtlFile(file);
 	if (mtlFile.is_open()) {
 		while (std::getline(mtlFile, mLine)) {

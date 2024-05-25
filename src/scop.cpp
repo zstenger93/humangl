@@ -22,8 +22,6 @@ int main(int argc, char **argv) {
 	processObjFile(argv[3], object);
 	saveTextures(object, argv);
 
-	// object.Triangles
-
 	GLFWwindow *window = createWindow(object);
 	Shader shader(argv[1], argv[2]);
 
