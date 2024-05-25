@@ -46,5 +46,7 @@ void walk(Cube *human, int i);
 void run(Cube *human, int i);
 void stand(Cube *human, int i);
 void jump(Cube *human, int i);
+void box(Cube *human, int i);
+void kickBox(Cube *human, int i);
 
 #endif
