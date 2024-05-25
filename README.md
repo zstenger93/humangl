@@ -63,7 +63,7 @@ Handling keypress events as:
 				F17:	run
 				F18:	walk
 				F19:	jump
-				\:		kickbox
+				\:	kickbox
 				Enter:	box
 			Texture:
 				Backspace: change between plain colors/textures
