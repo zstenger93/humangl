@@ -15,7 +15,7 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 	int light = 2;
 	int prevTex = -1;
 	glm::vec3 color(1.0f, 0.0f, 0.0f);
-	Cube human;
+	Cube *human = new Cube();
 	Sliders sliders;
 	
 	initHuman(human);
@@ -42,4 +42,5 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 		glfwPollEvents();
 	}
 	clearLeaks(human);
+	delete human;
 }

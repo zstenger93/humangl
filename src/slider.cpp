@@ -9,7 +9,7 @@ void initSliderValues(Slider &slider) {
 	}
 }
 
-void drawSliderMenu(GLFWwindow *window, Cube &human, Sliders &sliders) {
+void drawSliderMenu(GLFWwindow *window, Cube *human, Sliders &sliders) {
 	const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -72,7 +72,7 @@ void setImGuiStyle() {
 	style->FrameRounding = 4;
 }
 
-void drawHeadSlider(Cube &human, Slider &headSlider) {
+void drawHeadSlider(Cube *human, Slider &headSlider) {
 	ImGui::BeginChild("Head", ImVec2(135, 120), true);
 	double initialY = headSlider.sliderBaseValue.y, initialX = headSlider.sliderBaseValue.x,
 		   initialZ = headSlider.sliderBaseValue.z;
@@ -107,12 +107,12 @@ void drawHeadSlider(Cube &human, Slider &headSlider) {
 	ImGui::EndChild();
 	if (initialY != headSlider.sliderBaseValue.y || initialX != headSlider.sliderBaseValue.x ||
 		initialZ != headSlider.sliderBaseValue.z) {
-		human._cubes[4]->resizeCube(glm::vec3(headSlider.sliderBaseValue.x, headSlider.sliderBaseValue.y,
+		human->_cubes[4]->resizeCube(glm::vec3(headSlider.sliderBaseValue.x, headSlider.sliderBaseValue.y,
 								   headSlider.sliderBaseValue.z));
 	}
 }
 
-void drawBodySlider(Cube &human, Slider &bodySlider, Slider &headSlider) {
+void drawBodySlider(Cube *human, Slider &bodySlider, Slider &headSlider) {
 	double initialY = bodySlider.sliderBaseValue.y, initialX = bodySlider.sliderBaseValue.x,
 		   initialZ = bodySlider.sliderBaseValue.z;
 	ImGui::BeginChild("Body", ImVec2(135, 120), true);
@@ -147,12 +147,12 @@ void drawBodySlider(Cube &human, Slider &bodySlider, Slider &headSlider) {
 	ImGui::EndChild();
 	if (initialY != bodySlider.sliderBaseValue.y || initialX != bodySlider.sliderBaseValue.x ||
 		initialZ != bodySlider.sliderBaseValue.z) {
-		human.resizeCube(glm::vec3(bodySlider.sliderBaseValue.x, bodySlider.sliderBaseValue.y,
+		human->resizeCube(glm::vec3(bodySlider.sliderBaseValue.x, bodySlider.sliderBaseValue.y,
 								   bodySlider.sliderBaseValue.z));
 	}
 }
 
-void drawLeftUpperArmSlider(Cube &human, Slider &leftUpperArmSlider, Slider &headSlider) {
+void drawLeftUpperArmSlider(Cube *human, Slider &leftUpperArmSlider, Slider &headSlider) {
 	double initialY = leftUpperArmSlider.sliderBaseValue.y, initialX = leftUpperArmSlider.sliderBaseValue.x,
 		   initialZ = leftUpperArmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftUpperArm", ImVec2(135, 120), true);
@@ -189,13 +189,13 @@ void drawLeftUpperArmSlider(Cube &human, Slider &leftUpperArmSlider, Slider &hea
 	ImGui::EndChild();
 	if (initialY != leftUpperArmSlider.sliderBaseValue.y || initialX != leftUpperArmSlider.sliderBaseValue.x ||
 		initialZ != leftUpperArmSlider.sliderBaseValue.z) {
-		human._cubes[0]->resizeCube(glm::vec3(leftUpperArmSlider.sliderBaseValue.x,
+		human->_cubes[0]->resizeCube(glm::vec3(leftUpperArmSlider.sliderBaseValue.x,
 								   leftUpperArmSlider.sliderBaseValue.y,
 								   leftUpperArmSlider.sliderBaseValue.z));
 	}
 }
 
-void drawLeftForearmSlider(Cube &human, Slider &leftForearmSlider, Slider &headSlider) {
+void drawLeftForearmSlider(Cube *human, Slider &leftForearmSlider, Slider &headSlider) {
 	double initialY = leftForearmSlider.sliderBaseValue.y, initialX = leftForearmSlider.sliderBaseValue.x,
 		   initialZ = leftForearmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftForearm", ImVec2(135, 120), true);
@@ -230,13 +230,13 @@ void drawLeftForearmSlider(Cube &human, Slider &leftForearmSlider, Slider &headS
 	ImGui::EndChild();
 	if (initialY != leftForearmSlider.sliderBaseValue.y || initialX != leftForearmSlider.sliderBaseValue.x ||
 		initialZ != leftForearmSlider.sliderBaseValue.z) {
-		human._cubes[0]->_cubes[0]->resizeCube(glm::vec3(leftForearmSlider.sliderBaseValue.x,
+		human->_cubes[0]->_cubes[0]->resizeCube(glm::vec3(leftForearmSlider.sliderBaseValue.x,
 								   leftForearmSlider.sliderBaseValue.y,
 								   leftForearmSlider.sliderBaseValue.z));
 	}
 }
 
-void drawRightUpperArmSlider(Cube &human, Slider &rightUpperArmSlider, Slider &headSlider) {
+void drawRightUpperArmSlider(Cube *human, Slider &rightUpperArmSlider, Slider &headSlider) {
 	double initialY = rightUpperArmSlider.sliderBaseValue.y, initialX = rightUpperArmSlider.sliderBaseValue.x,
 		   initialZ = rightUpperArmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightUpperArm", ImVec2(135, 120), true);
@@ -274,13 +274,13 @@ void drawRightUpperArmSlider(Cube &human, Slider &rightUpperArmSlider, Slider &h
 	ImGui::EndChild();
 	if (initialY != rightUpperArmSlider.sliderBaseValue.y || initialX != rightUpperArmSlider.sliderBaseValue.x ||
 		initialZ != rightUpperArmSlider.sliderBaseValue.z) {
-		human._cubes[1]->resizeCube(glm::vec3(rightUpperArmSlider.sliderBaseValue.x,
+		human->_cubes[1]->resizeCube(glm::vec3(rightUpperArmSlider.sliderBaseValue.x,
 								   rightUpperArmSlider.sliderBaseValue.y,
 								   rightUpperArmSlider.sliderBaseValue.z));
 	}
 }
 
-void drawRightForearmSlider(Cube &human, Slider &rightForearmSlider, Slider &headSlider) {
+void drawRightForearmSlider(Cube *human, Slider &rightForearmSlider, Slider &headSlider) {
 	double initialY = rightForearmSlider.sliderBaseValue.y, initialX = rightForearmSlider.sliderBaseValue.x,
 		   initialZ = rightForearmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightForearm", ImVec2(135, 120), true);
@@ -317,13 +317,13 @@ void drawRightForearmSlider(Cube &human, Slider &rightForearmSlider, Slider &hea
 	ImGui::EndChild();
 	if (initialY != rightForearmSlider.sliderBaseValue.y || initialX != rightForearmSlider.sliderBaseValue.x ||
 		initialZ != rightForearmSlider.sliderBaseValue.z) {
-		human._cubes[1]->_cubes[0]->resizeCube(glm::vec3(rightForearmSlider.sliderBaseValue.x,
+		human->_cubes[1]->_cubes[0]->resizeCube(glm::vec3(rightForearmSlider.sliderBaseValue.x,
 								   rightForearmSlider.sliderBaseValue.y,
 								   rightForearmSlider.sliderBaseValue.z));
 	}
 }
 
-void drawLeftThighSlider(Cube &human, Slider &leftThighSlider, Slider &headSlider) {
+void drawLeftThighSlider(Cube *human, Slider &leftThighSlider, Slider &headSlider) {
 	double initialY = leftThighSlider.sliderBaseValue.y, initialX = leftThighSlider.sliderBaseValue.x,
 		   initialZ = leftThighSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftThigh", ImVec2(135, 120), true);
@@ -358,13 +358,13 @@ void drawLeftThighSlider(Cube &human, Slider &leftThighSlider, Slider &headSlide
 	ImGui::EndChild();
 	if (initialY != leftThighSlider.sliderBaseValue.y || initialX != leftThighSlider.sliderBaseValue.x ||
 		initialZ != leftThighSlider.sliderBaseValue.z) {
-		human._cubes[2]->resizeCube(glm::vec3(leftThighSlider.sliderBaseValue.x,
+		human->_cubes[2]->resizeCube(glm::vec3(leftThighSlider.sliderBaseValue.x,
 								   leftThighSlider.sliderBaseValue.y,
 								   leftThighSlider.sliderBaseValue.z));
 	}
 }
 
-void drawLeftLowerLegSlider(Cube &human, Slider &leftLowerLegSlider, Slider &headSlider) {
+void drawLeftLowerLegSlider(Cube *human, Slider &leftLowerLegSlider, Slider &headSlider) {
 	double initialY = leftLowerLegSlider.sliderBaseValue.y, initialX = leftLowerLegSlider.sliderBaseValue.x,
 		   initialZ = leftLowerLegSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftLowerLeg", ImVec2(135, 120), true);
@@ -401,13 +401,13 @@ void drawLeftLowerLegSlider(Cube &human, Slider &leftLowerLegSlider, Slider &hea
 	ImGui::EndChild();
 	if (initialY != leftLowerLegSlider.sliderBaseValue.y || initialX != leftLowerLegSlider.sliderBaseValue.x ||
 		initialZ != leftLowerLegSlider.sliderBaseValue.z) {
-		human._cubes[2]->_cubes[0]->resizeCube(glm::vec3(leftLowerLegSlider.sliderBaseValue.x,
+		human->_cubes[2]->_cubes[0]->resizeCube(glm::vec3(leftLowerLegSlider.sliderBaseValue.x,
 								   leftLowerLegSlider.sliderBaseValue.y,
 								   leftLowerLegSlider.sliderBaseValue.z));
 	}
 }
 
-void drawRightThighSlider(Cube &human, Slider &rightThighSlider, Slider &headSlider) {
+void drawRightThighSlider(Cube *human, Slider &rightThighSlider, Slider &headSlider) {
 	double initialY = rightThighSlider.sliderBaseValue.y, initialX = rightThighSlider.sliderBaseValue.x,
 		   initialZ = rightThighSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightThigh", ImVec2(135, 120), true);
@@ -442,13 +442,13 @@ void drawRightThighSlider(Cube &human, Slider &rightThighSlider, Slider &headSli
 	ImGui::EndChild();
 	if (initialY != rightThighSlider.sliderBaseValue.y || initialX != rightThighSlider.sliderBaseValue.x ||
 		initialZ != rightThighSlider.sliderBaseValue.z) {
-		human._cubes[3]->resizeCube(glm::vec3(rightThighSlider.sliderBaseValue.x,
+		human->_cubes[3]->resizeCube(glm::vec3(rightThighSlider.sliderBaseValue.x,
 								   rightThighSlider.sliderBaseValue.y,
 								   rightThighSlider.sliderBaseValue.z));
 	}
 }
 
-void drawRightLowerLegSlider(Cube &human, Slider &rightLowerLegSlider, Slider &headSlider) {
+void drawRightLowerLegSlider(Cube *human, Slider &rightLowerLegSlider, Slider &headSlider) {
 	double initialY = rightLowerLegSlider.sliderBaseValue.y, initialX = rightLowerLegSlider.sliderBaseValue.x,
 		   initialZ = rightLowerLegSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightLowerLeg", ImVec2(135, 120), true);
@@ -486,7 +486,7 @@ void drawRightLowerLegSlider(Cube &human, Slider &rightLowerLegSlider, Slider &h
 	ImGui::EndChild();
 	if (initialY != rightLowerLegSlider.sliderBaseValue.y || initialX != rightLowerLegSlider.sliderBaseValue.x ||
 		initialZ != rightLowerLegSlider.sliderBaseValue.z) {
-		human._cubes[3]->_cubes[0]->resizeCube(glm::vec3(rightLowerLegSlider.sliderBaseValue.x,
+		human->_cubes[3]->_cubes[0]->resizeCube(glm::vec3(rightLowerLegSlider.sliderBaseValue.x,
 								   rightLowerLegSlider.sliderBaseValue.y,
 								   rightLowerLegSlider.sliderBaseValue.z));
 	}

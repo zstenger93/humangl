@@ -28,7 +28,7 @@ void initObject(Object &object) {
 
 void loadFromObjFile(const std::string &filePath, Object &object) {
 	std::string line;
-	std::ifstream objFile("resources/human.obj");
+	std::ifstream objFile("resources/human->obj");
 	if (!objFile.is_open()) {
 		std::cerr << "Error opening the file: " << filePath << std::endl;
 		return;

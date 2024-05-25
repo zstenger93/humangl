@@ -61,10 +61,10 @@ Cube::Cube() {
 
 Cube::~Cube() {}
 
-Cube::Cube(Cube &parentCube, int parentCubeAttachmentPoint1, int parentCubeAttachemntPoint2,
+Cube::Cube(Cube *parentCube, int parentCubeAttachmentPoint1, int parentCubeAttachemntPoint2,
 		   int childCubeAttachmentPoint1, int childCubeAttachmentPoint2) {
 	generateCube();
-	_parentCube = &parentCube;
+	_parentCube = parentCube;
 	_parentCubeAttachmentPoint1Index = parentCubeAttachmentPoint1;
 	_parentCubeAttachmentPoint2Index = parentCubeAttachemntPoint2;
 	_childCubeAttachmentPoint1Index = childCubeAttachmentPoint1;
@@ -157,10 +157,10 @@ std::vector<float> transformVectorToFloat(std::vector<Cube> cubes) {
 	return points;
 }
 
-std::vector<float> humanGLLogic(Object &object, Cube &human) {
+std::vector<float> humanGLLogic(Object &object, Cube *human) {
 	std::vector<float> newPoints;
 	object.Triangles.clear();
-	std::vector<Cube> listOfCubes = human.recusiveCubes();
+	std::vector<Cube> listOfCubes = human->recusiveCubes();
 	newPoints = transformVectorToFloat(listOfCubes);
 	return newPoints;
 }
@@ -193,6 +193,7 @@ void rotatePoint(glm::vec3 &point, glm::vec3 angle, glm::vec3 &rotationPoint) {
 	point += rotationPoint;
 }
 
+
 void Cube::rotateCube(glm::vec3 angle, glm::vec3 &rotationPoint) {
 	for (unsigned long i = 0; i < _points.size(); i++) {
 		rotatePoint(_points[i], angle, rotationPoint);
@@ -206,90 +207,92 @@ void Cube::rotateCubeHelper(glm::vec3 angle) {
 	glm::vec3 rotationPoint = calculateCenter(_points[_childCubeAttachmentPoint1Index],
 											  _points[_childCubeAttachmentPoint2Index]);
 	rotateCube(angle, rotationPoint);
+	_baseAngle += angle;
+	std::cout << _baseAngle.x << " " << _baseAngle.y << " " << _baseAngle.z << std::endl;
 }
 
-void walk(Cube &human, int i) {
+void walk(Cube *human, int i) {
 	if (i < 20) {
-		human._cubes[0]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
-		human._cubes[1]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
-		human._cubes[2]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
-		human._cubes[3]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
+		human->_cubes[2]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
 	}
 	if (i > 20 && i < 60) {
-		human._cubes[0]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
-		human._cubes[1]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
-		human._cubes[2]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
-		human._cubes[3]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
+		human->_cubes[2]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
 	}
 	if (i > 60 && i < 80) {
-		human._cubes[0]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
-		human._cubes[1]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
-		human._cubes[2]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
-		human._cubes[3]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
+		human->_cubes[2]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 00.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 00.0f));
 	}
 }
 
-void run(Cube &human, int i) {
+void run(Cube *human, int i) {
 	if (i < 20) {
-		human._cubes[0]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
-		human._cubes[1]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
-		human._cubes[2]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
-		human._cubes[3]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
-		human._cubes[1]->_cubes[0]->rotateCubeHelper(glm::vec3(-5.0f, 0.0f, 0.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
+		human->_cubes[2]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
+		human->_cubes[1]->_cubes[0]->rotateCubeHelper(glm::vec3(-5.0f, 0.0f, 0.0f));
 	} else if (i < 60) {
-		human._cubes[0]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
-		human._cubes[1]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
-		human._cubes[2]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
-		human._cubes[3]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
+		human->_cubes[2]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
 		if (i < 40)
-			human._cubes[1]->_cubes[0]->rotateCubeHelper(glm::vec3(5.0f, 0.0f, 0.0f));
+			human->_cubes[1]->_cubes[0]->rotateCubeHelper(glm::vec3(5.0f, 0.0f, 0.0f));
 		else if (i < 100)
-			human._cubes[0]->_cubes[0]->rotateCubeHelper(glm::vec3(-5.0f, 0.0f, 0.0f));
+			human->_cubes[0]->_cubes[0]->rotateCubeHelper(glm::vec3(-5.0f, 0.0f, 0.0f));
 	} else if (i < 80) {
-		human._cubes[0]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
-		human._cubes[1]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
-		human._cubes[2]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
-		human._cubes[3]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
-		human._cubes[0]->_cubes[0]->rotateCubeHelper(glm::vec3(5.0f, 0.0f, 0.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
+		human->_cubes[2]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
+		human->_cubes[0]->_cubes[0]->rotateCubeHelper(glm::vec3(5.0f, 0.0f, 0.0f));
 	}
 }
 
-void jump(Cube &human, int i) {
+void jump(Cube *human, int i) {
 	if (i < 20) {
-		human._cubes[0]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
-		human._cubes[1]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
-		human._cubes[2]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
-		human._cubes[3]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
+		human->_cubes[2]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
 	} else if (i < 40) {
-		human._cubes[0]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
-		human._cubes[1]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
-		human._cubes[2]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
-		human._cubes[3]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
+		human->_cubes[2]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
 	} else if (i < 60) {
-		human._cubes[0]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
-		human._cubes[1]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
-		human._cubes[2]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
-		human._cubes[3]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
+		human->_cubes[2]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
 	} else if (i < 80) {
-		human._cubes[0]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
-		human._cubes[1]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
-		human._cubes[2]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
-		human._cubes[3]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
+		human->_cubes[2]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, -3.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(0.0f, 0.0f, 3.0f));
 	}
 }
 
-void stand(Cube &human, int i) {
+void stand(Cube *human, int i) {
 	(void)i;
 	return;
 }
 
-void renderHuman(Cube &human) {
+void renderHuman(Cube *human) {
 	static int i = 0;
 	static int animationLoop = 0;
 	if (i == 40) {
-		animationLoop = human._animationMode;
-		human._animationMode += 1;
-		human._animationMode %= 4;
+		animationLoop = human->_animationMode;
+		human->_animationMode += 1;
+		human->_animationMode %= 4;
 	}
 	if (animationLoop == 0)
 		run(human, i);
@@ -303,46 +306,46 @@ void renderHuman(Cube &human) {
 	if (i > 80) i = 0;
 }
 
-void initHuman(Cube &human) {
+void initHuman(Cube *human) {
 	Cube *leftArm = new Cube(human, 3, 7, 2, 6);
 	Cube *rightArm = new Cube(human, 2, 6, 3, 7);
 	Cube *rightLeg = new Cube(human, 0, 5, 3, 7);
 	Cube *leftLeg = new Cube(human, 0, 5, 2, 6);
 	Cube *head = new Cube(human, 3, 6, 0, 5);
-	Cube *leftShin = new Cube(*leftLeg, 0, 5, 3, 6);
-	Cube *rightShin = new Cube(*rightLeg, 0, 5, 3, 6);
-	Cube *leftForeArm = new Cube(*leftArm, 0, 7, 1, 6);
-	Cube *rightForeArm = new Cube(*rightArm, 1, 6, 0, 7);
+	Cube *leftShin = new Cube(leftLeg, 0, 5, 3, 6);
+	Cube *rightShin = new Cube(rightLeg, 0, 5, 3, 6);
+	Cube *leftForeArm = new Cube(leftArm, 0, 7, 1, 6);
+	Cube *rightForeArm = new Cube(rightArm, 1, 6, 0, 7);
 	leftArm->_cubes.push_back(leftForeArm);
 	rightArm->_cubes.push_back(rightForeArm);
 	leftLeg->_cubes.push_back(leftShin);
 	rightLeg->_cubes.push_back(rightShin);
-	human._cubes.push_back(leftArm);
-	human._cubes.push_back(rightArm);
-	human._cubes.push_back(rightLeg);
-	human._cubes.push_back(leftLeg);
-	human._cubes.push_back(head);
+	human->_cubes.push_back(leftArm);
+	human->_cubes.push_back(rightArm);
+	human->_cubes.push_back(rightLeg);
+	human->_cubes.push_back(leftLeg);
+	human->_cubes.push_back(head);
 }
 
-void humanSettings(Cube &human) {
-	human.centerCube();
-	human.resizeCube(glm::vec3(2.0f, 4.0f, 2.0f));
-	human._cubes[0]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
-	human._cubes[0]->_cubes[0]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
-	human._cubes[0]->rotateCubeHelper(glm::vec3(180.0f, 0.0f, 90.0f));
-	human._cubes[1]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
-	human._cubes[1]->_cubes[0]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
-	human._cubes[1]->rotateCubeHelper(glm::vec3(180.0f, 0.0f, 270.0f));
-	human._cubes[2]->resizeCube(glm::vec3(1.0f, 2.0f, 1.0f));
-	human._cubes[3]->resizeCube(glm::vec3(1.0f, 2.0f, 1.0f));
-	human._cubes[2]->_cubes[0]->resizeCube(glm::vec3(1.0f, 2.0f, 1.0f));
-	human._cubes[3]->_cubes[0]->resizeCube(glm::vec3(1.0f, 2.0f, 1.0f));
-	human._cubes[4]->resizeCube(glm::vec3(1.2f, 1.2f, 1.2f));
+void humanSettings(Cube *human) {
+	human->centerCube();
+	human->resizeCube(glm::vec3(2.0f, 4.0f, 2.0f));
+	human->_cubes[0]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
+	human->_cubes[0]->_cubes[0]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
+	human->_cubes[0]->rotateCubeHelper(glm::vec3(180.0f, 0.0f, 90.0f));
+	human->_cubes[1]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
+	human->_cubes[1]->_cubes[0]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
+	human->_cubes[1]->rotateCubeHelper(glm::vec3(180.0f, 0.0f, 270.0f));
+	human->_cubes[2]->resizeCube(glm::vec3(1.0f, 2.0f, 1.0f));
+	human->_cubes[3]->resizeCube(glm::vec3(1.0f, 2.0f, 1.0f));
+	human->_cubes[2]->_cubes[0]->resizeCube(glm::vec3(1.0f, 2.0f, 1.0f));
+	human->_cubes[3]->_cubes[0]->resizeCube(glm::vec3(1.0f, 2.0f, 1.0f));
+	human->_cubes[4]->resizeCube(glm::vec3(1.2f, 1.2f, 1.2f));
 }
 
-void clearLeaks(Cube &human) {
-	for (auto &cube : human._cubes) {
-		clearLeaks(*cube);
+void clearLeaks(Cube *human) {
+	for (auto *cube: human->_cubes) {
+		clearLeaks(cube);
 		delete cube;
 	}
 }
