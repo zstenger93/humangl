@@ -31,12 +31,13 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 		shader.setPerspective(camera, shader);
 		shader.setView(camera, shader);
 		draw(object);
-		renderHuman(human);
+		humanAnimations(window, human);
 		object.Triangles = humanGLLogic(object, human);
 		glBindBuffer(GL_ARRAY_BUFFER, object.VBO_triangles);
 		glBufferData(GL_ARRAY_BUFFER, object.Triangles.size() * sizeof(float),
 					 object.Triangles.data(), GL_STATIC_DRAW);
-		drawSliderMenu(window, human, sliders);
+		if (human->_inAnimation != true)
+			drawSliderMenu(window, human, sliders);
 		renderText(window, object, color);
 		glfwSwapBuffers(window);
 		glfwPollEvents();

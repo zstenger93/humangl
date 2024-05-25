@@ -6,7 +6,7 @@
 void processObjFile(const std::string &filePath, Object &object) {
 	initObject(object);
 	initMtl(object);
-	// loadFromObjFile(filePath, object);
+	loadFromObjFile(filePath, object);
 	if (object.vertices.size() == 0) return;
 	normalizeTextureCoordinates(object);
 	triangleAssembly(object);
@@ -28,7 +28,7 @@ void initObject(Object &object) {
 
 void loadFromObjFile(const std::string &filePath, Object &object) {
 	std::string line;
-	std::ifstream objFile("resources/human->obj");
+	std::ifstream objFile("resources/human.obj");
 	if (!objFile.is_open()) {
 		std::cerr << "Error opening the file: " << filePath << std::endl;
 		return;
@@ -42,20 +42,8 @@ void loadFromObjFile(const std::string &filePath, Object &object) {
 		stream >> prefix;
 		if (prefix == "o") {
 			stream >> object.windowName;
-		} else if (prefix == "mtllib") {
+		} else if (prefix == "mtllib")
 			saveMtlAttributes(object, stream, prefix, fileName);
-		} else if (prefix == "v") {
-			saveVertexCoordinates(stream, object);
-		} else if (prefix == "vn") {
-			stream >> normalX >> normalY >> normalZ;
-			object.normals.push_back(glm::vec3(normalX, normalY, normalZ));
-		} else if (prefix == "vt") {
-			stream >> uvVal.u >> uvVal.v >> uvVal.w;
-			object.uv.push_back(uvVal);
-		} else if (prefix == "f") {
-			object.polyCount++;
-			saveFaceIndexes(stream, object);
-		}
 	}
 	objFile.close();
 }
@@ -240,9 +228,9 @@ void convertSquaresToTriangles(Object &object) {
 		float texX4 = object.Squares[i + 18];
 		float texY4 = object.Squares[i + 19];
 
-		object.Triangles.insert(object.Triangles.end(), {x1, y1, z1, texX1, texY1, x2, y2, z2, texX2, texY2, x3,
-										   y3, z3, texX3, texY3});
-		object.Triangles.insert(object.Triangles.end(), {x1, y1, z1, texX1, texY1, x3, y3, z3, texX3, texY3, x4,
-										   y4, z4, texX4, texY4});
+		object.Triangles.insert(object.Triangles.end(), {x1, y1, z1, texX1, texY1, x2, y2, z2,
+														 texX2, texY2, x3, y3, z3, texX3, texY3});
+		object.Triangles.insert(object.Triangles.end(), {x1, y1, z1, texX1, texY1, x3, y3, z3,
+														 texX3, texY3, x4, y4, z4, texX4, texY4});
 	}
 }

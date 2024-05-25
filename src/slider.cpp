@@ -30,7 +30,7 @@ void drawSliderMenu(GLFWwindow *window, Cube *human, Sliders &sliders) {
 
 	ImGui::SetNextWindowSize(ImVec2(295, 635));
 	ImGui::SetNextWindowPos(
-		ImVec2(mode->width - (mode->width - 200), (mode->height - (mode->height - 50))));
+		ImVec2(mode->width - (mode->width - 115), (mode->height - (mode->height - 500))));
 
 	ImGui::Begin("window", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::SetCursorPos(ImVec2(10, 10));

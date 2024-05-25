@@ -93,15 +93,7 @@ glm::vec3 Cube::calculateTranslationCube() {
 	return translation;
 }
 
-void Cube::centerCube() {
-	if (_parentCube == nullptr) {
-		glm::vec3 center = glm::vec3(0.0f, 0.0f, 0.0f);
-		moveCube(calculateTranslation(center,
-									  calculateCenter(_points[_childCubeAttachmentPoint1Index],
-													  _points[_childCubeAttachmentPoint2Index])));
-		return;
-	}
-}
+
 
 void Cube::moveCube(glm::vec3 translation) {
 	for (unsigned long i = 0; i < _points.size(); i++) {
@@ -113,7 +105,8 @@ void Cube::moveCube(glm::vec3 translation) {
 }
 
 void Cube::resizeCubeHelper() {
-	moveCube(calculateTranslationCube());
+	if (_parentCube != nullptr)
+		moveCube(calculateTranslationCube());
 	for (auto &cube : _cubes) {
 		cube->resizeCubeHelper();
 	}
@@ -140,18 +133,18 @@ std::vector<float> transformVectorToFloat(std::vector<Cube> cubes) {
 			points.push_back(vertex1.x);
 			points.push_back(vertex1.y);
 			points.push_back(vertex1.z);
-			points.push_back(0);
-			points.push_back(0);
+			points.push_back(0.1);
+			points.push_back(0.1);
 			points.push_back(vertex2.x);
 			points.push_back(vertex2.y);
 			points.push_back(vertex2.z);
-			points.push_back(0);
+			points.push_back(0.1);
 			points.push_back(1);
 			points.push_back(vertex3.x);
 			points.push_back(vertex3.y);
 			points.push_back(vertex3.z);
 			points.push_back(1);
-			points.push_back(0);
+			points.push_back(0.1);
 		}
 	}
 	return points;
@@ -193,7 +186,6 @@ void rotatePoint(glm::vec3 &point, glm::vec3 angle, glm::vec3 &rotationPoint) {
 	point += rotationPoint;
 }
 
-
 void Cube::rotateCube(glm::vec3 angle, glm::vec3 &rotationPoint) {
 	for (unsigned long i = 0; i < _points.size(); i++) {
 		rotatePoint(_points[i], angle, rotationPoint);
@@ -208,7 +200,6 @@ void Cube::rotateCubeHelper(glm::vec3 angle) {
 											  _points[_childCubeAttachmentPoint2Index]);
 	rotateCube(angle, rotationPoint);
 	_baseAngle += angle;
-	std::cout << _baseAngle.x << " " << _baseAngle.y << " " << _baseAngle.z << std::endl;
 }
 
 void walk(Cube *human, int i) {
@@ -286,20 +277,25 @@ void stand(Cube *human, int i) {
 	return;
 }
 
-void renderHuman(Cube *human) {
+void humanAnimations(GLFWwindow *window, Cube *human) {
 	static int i = 0;
 	static int animationLoop = 0;
-	if (i == 40) {
-		animationLoop = human->_animationMode;
-		human->_animationMode += 1;
-		human->_animationMode %= 4;
+	if (glfwGetKey(window, GLFW_KEY_F16) == GLFW_PRESS) human->_animationMode = 0;
+	if (glfwGetKey(window, GLFW_KEY_F17) == GLFW_PRESS) human->_animationMode = 1;
+	if (glfwGetKey(window, GLFW_KEY_F18) == GLFW_PRESS) human->_animationMode = 2;
+	if (glfwGetKey(window, GLFW_KEY_F19) == GLFW_PRESS) human->_animationMode = 3;
+	if (human->_animationMode == 1 || human->_animationMode == 2 || human->_animationMode == 3)
+		human->_inAnimation = true;
+	else {
+		if (i == 40) human->_inAnimation = false;
 	}
+	if (i == 40) animationLoop = human->_animationMode;
 	if (animationLoop == 0)
-		run(human, i);
-	else if (animationLoop == 1)
-		walk(human, i);
-	else if (animationLoop == 2)
 		stand(human, i);
+	else if (animationLoop == 1)
+		run(human, i);
+	else if (animationLoop == 2)
+		walk(human, i);
 	else if (animationLoop == 3)
 		jump(human, i);
 	i++;
@@ -328,7 +324,7 @@ void initHuman(Cube *human) {
 }
 
 void humanSettings(Cube *human) {
-	human->centerCube();
+	human->_inAnimation = false;
 	human->resizeCube(glm::vec3(2.0f, 4.0f, 2.0f));
 	human->_cubes[0]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
 	human->_cubes[0]->_cubes[0]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
@@ -344,7 +340,7 @@ void humanSettings(Cube *human) {
 }
 
 void clearLeaks(Cube *human) {
-	for (auto *cube: human->_cubes) {
+	for (auto *cube : human->_cubes) {
 		clearLeaks(cube);
 		delete cube;
 	}

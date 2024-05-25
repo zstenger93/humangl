@@ -15,6 +15,7 @@ class Cube {
 	int _childCubeAttachmentPoint1Index;
 	int _childCubeAttachmentPoint2Index;
 	int _animationMode;
+	bool _inAnimation;
 	glm::vec3 _baseScaleValue = glm::vec3(1.0f, 1.0f, 1.0f);
 	glm::vec3 _baseAngle = glm::vec3(0.0f, 0.0f, 0.0f);
 	Cube();
@@ -28,7 +29,6 @@ class Cube {
 	void rotateCube(glm::vec3 angle, glm::vec3 &rotationPoint);
 	void rotateCubeHelper(glm::vec3 angle);
 	void resizeCube(glm::vec3 scale);
-	void centerCube();
 	void resizeCubeHelper();
 	void resetCubeAngle(int mode);
 };
@@ -38,7 +38,7 @@ glm::vec3 calculateTranslation(glm::vec3 point1, glm::vec3 point2);
 std::vector<float> transformVectorToFloat(std::vector<Cube> cubes);
 std::vector<float> humanGLLogic(Object &object, Cube *human);
 void rotatePoint(glm::vec3 &point, glm::vec3 angle, glm::vec3 &rotationPoint);
-void renderHuman(Cube *human);
+void humanAnimations(GLFWwindow *window, Cube *human);
 void initHuman(Cube *human);
 void humanSettings(Cube *human);
 void clearLeaks(Cube *human);
