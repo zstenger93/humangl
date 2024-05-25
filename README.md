@@ -57,6 +57,16 @@ I use basic GLFW functions to handle the key inputs so nothing special.
 
 ```
 Handling keypress events as:
+		HumanGL specific:
+			Animations:
+				F16:	stand
+				F17:	run
+				F18:	walk
+				F19:	jump
+				\:		kickbox
+				Enter:	box
+			Texture:
+				Backspace: change between plain colors/textures
 		Text rendering:
 			7:		on/off to show details and keybindings
 		Camera movement:
