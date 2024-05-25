@@ -293,6 +293,81 @@ void jump(Cube *human, int i) {
 	}
 }
 
+void kickBox(Cube *human, int i)
+{
+	if (i < 10)
+	{
+		human->_cubes[3]->_cubes[0]->rotateCubeHelper(glm::vec3(10.0f, 0.0f, 0.0f));
+	}
+	else if (i < 20) {
+		// do nothing
+	}
+	else if (i < 40)
+	{
+		human->_cubes[0]->_cubes[0]->rotateCubeHelper(glm::vec3(3.0f, -1.0f, 0.0f));
+		human->_cubes[1]->_cubes[0]->rotateCubeHelper(glm::vec3(3.0f, 1.0f, 0.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(3.0f, 0.0f, 0.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(5.0f, 0.0f, 0.0f));
+		human->_cubes[3]->_cubes[0]->rotateCubeHelper(glm::vec3(-5.0f, 0.0f, 0.0f));
+	}
+	else if (i < 60)
+	{
+		human->_cubes[1]->_cubes[0]->rotateCubeHelper(glm::vec3(-3.0f, -1.0f, 0.0f));
+		human->_cubes[0]->_cubes[0]->rotateCubeHelper(glm::vec3(-3.0f, 1.0f, 0.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(-3.0f, 0.0f, 0.0f));
+		human->_cubes[3]->rotateCubeHelper(glm::vec3(-5.0f, 0.0f, 0.0f));
+		human->_cubes[3]->_cubes[0]->rotateCubeHelper(glm::vec3(5.0f, 0.0f, 0.0f));
+	}
+	else if (i < 70)
+	{
+		human->_cubes[3]->_cubes[0]->rotateCubeHelper(glm::vec3(-10.0f, 0.0f, 0.0f));
+	}
+	else if (i < 80)
+	{
+		//do nothing
+	}
+}
+
+void box(Cube *human, int i)
+{
+	if (i < 10)
+	{
+		human->_cubes[1]->_cubes[0]->rotateCubeHelper(glm::vec3(-14.0f, 0.0f, 0.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(8.0f, 0.0f, 0.0f));
+	}
+	else if (i < 20) {
+		// do nothing
+	}
+	else if (i < 40)
+	{
+		human->_cubes[0]->_cubes[0]->rotateCubeHelper(glm::vec3(7.0f, 0.0f, 0.0f));
+		human->_cubes[1]->_cubes[0]->rotateCubeHelper(glm::vec3(7.0f, 0.0f, 0.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 0.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(1.0f, 0.0f, 0.0f));
+	}
+	else if (i < 60)
+	{
+		human->_cubes[0]->_cubes[0]->rotateCubeHelper(glm::vec3(-7.0f, 0.0f, 0.0f));
+		human->_cubes[1]->_cubes[0]->rotateCubeHelper(glm::vec3(-7.0f, 0.0f, 0.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 0.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(-1.0f, 0.0f, 0.0f));
+	}
+	else if (i < 70)
+	{
+		human->_cubes[0]->_cubes[0]->rotateCubeHelper(glm::vec3(14.0f, 0.0f, 0.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(-8.0f, 0.0f, 0.0f));
+	}
+	else if (i < 80)
+	{
+		human->_cubes[0]->_cubes[0]->rotateCubeHelper(glm::vec3(-14.0f, 0.0f, 0.0f));
+		human->_cubes[0]->rotateCubeHelper(glm::vec3(8.0f, 0.0f, 0.0f));
+		human->_cubes[1]->_cubes[0]->rotateCubeHelper(glm::vec3(14.0f, 0.0f, 0.0f));
+		human->_cubes[1]->rotateCubeHelper(glm::vec3(-8.0f, 0.0f, 0.0f));
+	}
+}
+
 void stand(Cube *human, int i) {
 	(void)i;
 	return;
@@ -305,7 +380,9 @@ void humanAnimations(GLFWwindow *window, Cube *human) {
 	if (glfwGetKey(window, GLFW_KEY_F17) == GLFW_PRESS) human->_animationMode = 1;
 	if (glfwGetKey(window, GLFW_KEY_F18) == GLFW_PRESS) human->_animationMode = 2;
 	if (glfwGetKey(window, GLFW_KEY_F19) == GLFW_PRESS) human->_animationMode = 3;
-	if (human->_animationMode == 1 || human->_animationMode == 2 || human->_animationMode == 3)
+	if (glfwGetKey(window, GLFW_KEY_BACKSLASH) == GLFW_PRESS) human->_animationMode = 4;
+	if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) human->_animationMode = 5;
+	if (human->_animationMode == 1 || human->_animationMode == 5 || human->_animationMode == 2 || human->_animationMode == 3 || human->_animationMode == 4)
 		human->_inAnimation = true;
 	else if (i == 40)
 		human->_inAnimation = false;
@@ -318,6 +395,10 @@ void humanAnimations(GLFWwindow *window, Cube *human) {
 		walk(human, i);
 	else if (animationLoop == 3)
 		jump(human, i);
+	else if (animationLoop == 4)
+		kickBox(human, i);
+	else if (animationLoop == 5)
+		box(human, i);
 	i++;
 	if (i > 80) i = 0;
 }
