@@ -34,5 +34,6 @@ GLFWwindow *createWindow(Object &object) {
 }
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int heigth) {
+	(void)window;
 	glViewport(0, 0, width, heigth);
 }

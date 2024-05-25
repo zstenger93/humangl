@@ -36,8 +36,6 @@ void loadFromObjFile(const std::string &filePath, Object &object) {
 	while (std::getline(objFile, line)) {
 		std::string prefix, fileName;
 		std::istringstream stream(line);
-		Uv uvVal;
-		float normalX, normalY, normalZ;
 
 		stream >> prefix;
 		if (prefix == "o") {

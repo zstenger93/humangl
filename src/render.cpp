@@ -37,7 +37,7 @@ void renderingLoop(GLFWwindow *window, Shader &shader, Camera &camera, Object &o
 		glBufferData(GL_ARRAY_BUFFER, object.Triangles.size() * sizeof(float),
 					 object.Triangles.data(), GL_STATIC_DRAW);
 		if (human->_inAnimation != true)
-			drawSliderMenu(window, human, sliders);
+			drawSliderMenu(human, sliders);
 		renderText(window, object, color);
 		glfwSwapBuffers(window);
 		glfwPollEvents();

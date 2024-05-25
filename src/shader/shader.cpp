@@ -109,6 +109,7 @@ void Shader::setView(Camera &camera, Shader &shader) {
 }
 
 void Shader::setModel(Camera &camera, Shader &shader, glm::mat4 &model) {
+	(void)camera;
 	shader.setMat4("model", model);
 }
 

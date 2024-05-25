@@ -9,7 +9,7 @@ void initSliderValues(Slider &slider) {
 	}
 }
 
-void drawSliderMenu(GLFWwindow *window, Cube *human, Sliders &sliders) {
+void drawSliderMenu(Cube *human, Sliders &sliders) {
 	const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -34,23 +34,23 @@ void drawSliderMenu(GLFWwindow *window, Cube *human, Sliders &sliders) {
 
 	drawHeadSlider(human, sliders.headSlider);
 	ImGui::SameLine();
-	drawBodySlider(human, sliders.bodySlider, sliders.headSlider);
+	drawBodySlider(human, sliders.bodySlider);
 
-	drawLeftUpperArmSlider(human, sliders.leftUpperArmSlider, sliders.headSlider);
+	drawLeftUpperArmSlider(human, sliders.leftUpperArmSlider);
 	ImGui::SameLine();
-	drawLeftForearmSlider(human, sliders.leftForearmSlider, sliders.headSlider);
+	drawLeftForearmSlider(human, sliders.leftForearmSlider);
 
-	drawRightUpperArmSlider(human, sliders.rightUpperArmSlider, sliders.headSlider);
+	drawRightUpperArmSlider(human, sliders.rightUpperArmSlider);
 	ImGui::SameLine();
-	drawRightForearmSlider(human, sliders.rightForearmSlider, sliders.headSlider);
+	drawRightForearmSlider(human, sliders.rightForearmSlider);
 
-	drawLeftThighSlider(human, sliders.leftThighSlider, sliders.headSlider);
+	drawLeftThighSlider(human, sliders.leftThighSlider);
 	ImGui::SameLine();
-	drawLeftLowerLegSlider(human, sliders.leftLowerLegSlider, sliders.headSlider);
+	drawLeftLowerLegSlider(human, sliders.leftLowerLegSlider);
 
-	drawRightThighSlider(human, sliders.rightThighSlider, sliders.headSlider);
+	drawRightThighSlider(human, sliders.rightThighSlider);
 	ImGui::SameLine();
-	drawRightLowerLegSlider(human, sliders.rightLowerLegSlider, sliders.headSlider);
+	drawRightLowerLegSlider(human, sliders.rightLowerLegSlider);
 
 	ImGui::End();
 	ImGui::Render();
@@ -104,7 +104,7 @@ void drawHeadSlider(Cube *human, Slider &headSlider) {
 											   headSlider.sliderBaseValue.z));
 }
 
-void drawBodySlider(Cube *human, Slider &bodySlider, Slider &headSlider) {
+void drawBodySlider(Cube *human, Slider &bodySlider) {
 	double initialY = bodySlider.sliderBaseValue.y, initialX = bodySlider.sliderBaseValue.x,
 		   initialZ = bodySlider.sliderBaseValue.z;
 	ImGui::BeginChild("Body", ImVec2(135, 120), true);
@@ -138,7 +138,7 @@ void drawBodySlider(Cube *human, Slider &bodySlider, Slider &headSlider) {
 									bodySlider.sliderBaseValue.z));
 }
 
-void drawLeftUpperArmSlider(Cube *human, Slider &leftUpperArmSlider, Slider &headSlider) {
+void drawLeftUpperArmSlider(Cube *human, Slider &leftUpperArmSlider) {
 	double initialY = leftUpperArmSlider.sliderBaseValue.y,
 		   initialX = leftUpperArmSlider.sliderBaseValue.x,
 		   initialZ = leftUpperArmSlider.sliderBaseValue.z;
@@ -177,7 +177,7 @@ void drawLeftUpperArmSlider(Cube *human, Slider &leftUpperArmSlider, Slider &hea
 											   leftUpperArmSlider.sliderBaseValue.z));
 }
 
-void drawLeftForearmSlider(Cube *human, Slider &leftForearmSlider, Slider &headSlider) {
+void drawLeftForearmSlider(Cube *human, Slider &leftForearmSlider) {
 	double initialY = leftForearmSlider.sliderBaseValue.y,
 		   initialX = leftForearmSlider.sliderBaseValue.x,
 		   initialZ = leftForearmSlider.sliderBaseValue.z;
@@ -214,7 +214,7 @@ void drawLeftForearmSlider(Cube *human, Slider &leftForearmSlider, Slider &headS
 														  leftForearmSlider.sliderBaseValue.z));
 }
 
-void drawRightUpperArmSlider(Cube *human, Slider &rightUpperArmSlider, Slider &headSlider) {
+void drawRightUpperArmSlider(Cube *human, Slider &rightUpperArmSlider) {
 	double initialY = rightUpperArmSlider.sliderBaseValue.y,
 		   initialX = rightUpperArmSlider.sliderBaseValue.x,
 		   initialZ = rightUpperArmSlider.sliderBaseValue.z;
@@ -254,7 +254,7 @@ void drawRightUpperArmSlider(Cube *human, Slider &rightUpperArmSlider, Slider &h
 											   rightUpperArmSlider.sliderBaseValue.z));
 }
 
-void drawRightForearmSlider(Cube *human, Slider &rightForearmSlider, Slider &headSlider) {
+void drawRightForearmSlider(Cube *human, Slider &rightForearmSlider) {
 	double initialY = rightForearmSlider.sliderBaseValue.y,
 		   initialX = rightForearmSlider.sliderBaseValue.x,
 		   initialZ = rightForearmSlider.sliderBaseValue.z;
@@ -293,7 +293,7 @@ void drawRightForearmSlider(Cube *human, Slider &rightForearmSlider, Slider &hea
 														  rightForearmSlider.sliderBaseValue.z));
 }
 
-void drawLeftThighSlider(Cube *human, Slider &leftThighSlider, Slider &headSlider) {
+void drawLeftThighSlider(Cube *human, Slider &leftThighSlider) {
 	double initialY = leftThighSlider.sliderBaseValue.y,
 		   initialX = leftThighSlider.sliderBaseValue.x,
 		   initialZ = leftThighSlider.sliderBaseValue.z;
@@ -330,7 +330,7 @@ void drawLeftThighSlider(Cube *human, Slider &leftThighSlider, Slider &headSlide
 											   leftThighSlider.sliderBaseValue.z));
 }
 
-void drawLeftLowerLegSlider(Cube *human, Slider &leftLowerLegSlider, Slider &headSlider) {
+void drawLeftLowerLegSlider(Cube *human, Slider &leftLowerLegSlider) {
 	double initialY = leftLowerLegSlider.sliderBaseValue.y,
 		   initialX = leftLowerLegSlider.sliderBaseValue.x,
 		   initialZ = leftLowerLegSlider.sliderBaseValue.z;
@@ -369,7 +369,7 @@ void drawLeftLowerLegSlider(Cube *human, Slider &leftLowerLegSlider, Slider &hea
 														  leftLowerLegSlider.sliderBaseValue.z));
 }
 
-void drawRightThighSlider(Cube *human, Slider &rightThighSlider, Slider &headSlider) {
+void drawRightThighSlider(Cube *human, Slider &rightThighSlider) {
 	double initialY = rightThighSlider.sliderBaseValue.y,
 		   initialX = rightThighSlider.sliderBaseValue.x,
 		   initialZ = rightThighSlider.sliderBaseValue.z;
@@ -406,7 +406,7 @@ void drawRightThighSlider(Cube *human, Slider &rightThighSlider, Slider &headSli
 											   rightThighSlider.sliderBaseValue.z));
 }
 
-void drawRightLowerLegSlider(Cube *human, Slider &rightLowerLegSlider, Slider &headSlider) {
+void drawRightLowerLegSlider(Cube *human, Slider &rightLowerLegSlider) {
 	double initialY = rightLowerLegSlider.sliderBaseValue.y,
 		   initialX = rightLowerLegSlider.sliderBaseValue.x,
 		   initialZ = rightLowerLegSlider.sliderBaseValue.z;

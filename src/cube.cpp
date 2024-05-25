@@ -294,6 +294,7 @@ void jump(Cube *human, int i) {
 }
 
 void stand(Cube *human, int i) {
+	(void)human;
 	(void)i;
 	return;
 }
