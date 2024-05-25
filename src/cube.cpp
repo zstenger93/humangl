@@ -325,8 +325,8 @@ void initHuman(Cube &human) {
 }
 
 void humanSettings(Cube &human) {
-	human.centerCube();
-	human.resizeCube(glm::vec3(2.0f, 4.0f, 2.0f));
+	// human.centerCube();
+	// human.resizeCube(glm::vec3(2.0f, 4.0f, 2.0f));
 	human._cubes[0]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
 	human._cubes[0]->_cubes[0]->resizeCube(glm::vec3(2.5f, 1.0f, 1.0f));
 	human._cubes[0]->rotateCubeHelper(glm::vec3(180.0f, 0.0f, 90.0f));

@@ -30,26 +30,6 @@ TEXTURES = ${TEXTURE_OK} ${TEXTURE_COLORS} ${TEXTURE_CAMEL} \
 		   ${TEXTURE_MONSTER} ${TEXTURE_PUMPKIN} \
 
 # Object files
-OBJECT_42 = ${RS}42.obj
-OBJECT_TEAPOT = ${RS}teapot.obj
-OBJECT_SPIDER = ${RS}spider.obj
-OBJECT_SKULL = ${RS}skull.obj
-OBJECT_AXE = ${RS}axe.obj
-OBJECT_ARMOR = ${RS}armor.obj
-OBJECT_ALIENANIMAL = ${RS}alienanimal.obj
-OBJECT_BUILDING = ${RS}building.obj
-OBJECT_STARWARS = ${RS}sw.obj
-OBJECT_HEILBRONN = ${RS}hb.obj
-OBJECT_CAMEL = ${RS}Camel.obj
-OBJECT_CASTLE = ${RS}castle.obj
-OBJECT_TREX = ${RS}trex.obj
-OBJECT_PUMPKIN = ${RS}pumpkin.obj
-OBJECT_HOUSE = ${RS}ohouse.obj
-OBJECT_PARROT = ${RS}parrot.obj
-OBJECT_TCP = ${RS}tcp.obj
-OBJECT_PLANE = ${RS}plane.obj
-OBJECT_SCULP = ${RS}sculp.obj
-OBJECT_MONSTER = ${RS}monster.obj
 OBJECT_HUMAN = ${RS}human.obj
 
 REBUILD = make re
@@ -115,88 +95,12 @@ re:
 	@make all
 	@echo "$(GREEN)The project has been recompiled.$(COLOR_END)"
 
-# Test options
-42:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_42} ${TEXTURES}
-
-teapot:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_TEAPOT} ${TEXTURES}
-
-spider:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_SPIDER} ${TEXTURES}
-
-skull:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_SKULL} ${TEXTURES}
-
-axe:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_AXE} ${TEXTURES}
-
-alien:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_ALIENANIMAL} ${TEXTURES}
-
-building:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_BUILDING} ${TEXTURES}
-
-sw:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_STARWARS} ${TEXTURES}
-
-hb:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_HEILBRONN} ${TEXTURES}
-
-camel:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_CAMEL} ${TEXTURES}
-
-castle:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_CASTLE} ${TEXTURES}
-
-trex:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_TREX} ${TEXTURES}
-
-house:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_HOUSE} ${TEXTURES}
-
-parrot:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_PARROT} ${TEXTURES}
-
-tric:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_TCP} ${TEXTURES}
-
-plane:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_PLANE} ${TEXTURES}
-
-pumpkin:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_PUMPKIN} ${TEXTURES}
-
-monster:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_MONSTER} ${TEXTURES}
-
-sculp:
-# @${REBUILD}
-	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_SCULP} ${TEXTURES}
-
+# Test option
 human:
 	make
 	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_HUMAN} ${TEXTURES}
 
-.PHONY: all clean fclean re 42 teapot spider skull axe alien building sw hb camel castle trex house parrot tricc plane monster sculp
+.PHONY: all clean fclean re human
 
 COLOR_END = \033[0;39m
 CYAN3 = \033[1;4;96m
