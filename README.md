@@ -48,7 +48,8 @@ You will also need:
 ## How to use
 
 ```
-make human```
+make human
+```
 
 ## Keys
 
