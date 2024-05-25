@@ -27,25 +27,18 @@ struct Sliders {
 	Slider rightLowerLegSlider;
 };
 
+void setImGuiStyle();
 void initIMGUI(GLFWwindow *window);
 void initSliderValues(Slider &slider);
-
-void setImGuiStyle();
-
 void drawSliderMenu(GLFWwindow *window, Cube *human, Sliders &sliders);
 void drawHeadSlider(Cube *human, Slider &headSlider);
-
 void drawBodySlider(Cube *human, Slider &bodySlider, Slider &headSlider);
-
 void drawLeftUpperArmSlider(Cube *human, Slider &leftUpperArmSlider, Slider &headSlider);
 void drawLeftForearmSlider(Cube *human, Slider &leftForearmSlider, Slider &headSlider);
-
 void drawRightUpperArmSlider(Cube *human, Slider &rightUpperArmSlider, Slider &headSlider);
 void drawRightForearmSlider(Cube *human, Slider &rightForearmSlider, Slider &headSlider);
-
 void drawLeftThighSlider(Cube *human, Slider &leftThighSlider, Slider &headSlider);
 void drawLeftLowerLegSlider(Cube *human, Slider &leftLowerLegSlider, Slider &headSlider);
-
 void drawRightThighSlider(Cube *human, Slider &rightThighSlider, Slider &headSlider);
 void drawRightLowerLegSlider(Cube *human, Slider &rightLowerLegSlider, Slider &headSlider);
 

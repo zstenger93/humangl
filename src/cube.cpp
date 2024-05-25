@@ -133,18 +133,18 @@ std::vector<float> transformVectorToFloat(std::vector<Cube> cubes) {
 			points.push_back(vertex1.x);
 			points.push_back(vertex1.y);
 			points.push_back(vertex1.z);
-			points.push_back(0.1);
-			points.push_back(0.1);
+			points.push_back((float)i / (cubes.size()));
+			points.push_back((float)i / (cubes.size()));
 			points.push_back(vertex2.x);
 			points.push_back(vertex2.y);
 			points.push_back(vertex2.z);
-			points.push_back(0.1);
-			points.push_back(1);
+			points.push_back((float)i / (cubes.size()));
+			points.push_back((float)i / (cubes.size()));
 			points.push_back(vertex3.x);
 			points.push_back(vertex3.y);
 			points.push_back(vertex3.z);
-			points.push_back(1);
-			points.push_back(0.1);
+			points.push_back((float)i / (cubes.size()));
+			points.push_back((float)i / (cubes.size()));
 		}
 	}
 	return points;

@@ -14,9 +14,7 @@ void drawSliderMenu(GLFWwindow *window, Cube *human, Sliders &sliders) {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-
 	setImGuiStyle();
-
 	initSliderValues(sliders.headSlider);
 	initSliderValues(sliders.bodySlider);
 	initSliderValues(sliders.leftUpperArmSlider);
@@ -31,7 +29,6 @@ void drawSliderMenu(GLFWwindow *window, Cube *human, Sliders &sliders) {
 	ImGui::SetNextWindowSize(ImVec2(295, 635));
 	ImGui::SetNextWindowPos(
 		ImVec2(mode->width - (mode->width - 115), (mode->height - (mode->height - 500))));
-
 	ImGui::Begin("window", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::SetCursorPos(ImVec2(10, 10));
 
@@ -87,29 +84,24 @@ void drawHeadSlider(Cube *human, Slider &headSlider) {
 	ImGui::PushItemWidth(headSlider.sliderWidth);
 	ImGui::SliderFloat("Height", &headSlider.sliderBaseValue.y, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX((headSlider.childWidth - headSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 						 2);
 	ImGui::PushItemWidth(headSlider.sliderWidth);
 	ImGui::SliderFloat("Width", &headSlider.sliderBaseValue.x, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX((headSlider.childWidth - headSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 						 2);
 	ImGui::PushItemWidth(headSlider.sliderWidth);
 	ImGui::SliderFloat("Depth", &headSlider.sliderBaseValue.z, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::EndChild();
 	if (initialY != headSlider.sliderBaseValue.y || initialX != headSlider.sliderBaseValue.x ||
-		initialZ != headSlider.sliderBaseValue.z) {
-		human->_cubes[4]->resizeCube(glm::vec3(headSlider.sliderBaseValue.x, headSlider.sliderBaseValue.y,
-								   headSlider.sliderBaseValue.z));
-	}
+		initialZ != headSlider.sliderBaseValue.z)
+		human->_cubes[4]->resizeCube(glm::vec3(headSlider.sliderBaseValue.x,
+											   headSlider.sliderBaseValue.y,
+											   headSlider.sliderBaseValue.z));
 }
 
 void drawBodySlider(Cube *human, Slider &bodySlider, Slider &headSlider) {
@@ -127,33 +119,28 @@ void drawBodySlider(Cube *human, Slider &bodySlider, Slider &headSlider) {
 	ImGui::PushItemWidth(bodySlider.sliderWidth);
 	ImGui::SliderFloat("Height", &bodySlider.sliderBaseValue.y, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX((bodySlider.childWidth - bodySlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 						 2);
 	ImGui::PushItemWidth(bodySlider.sliderWidth);
 	ImGui::SliderFloat("Width", &bodySlider.sliderBaseValue.x, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX((bodySlider.childWidth - bodySlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 						 2);
 	ImGui::PushItemWidth(bodySlider.sliderWidth);
 	ImGui::SliderFloat("Depth", &bodySlider.sliderBaseValue.z, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::EndChild();
 	if (initialY != bodySlider.sliderBaseValue.y || initialX != bodySlider.sliderBaseValue.x ||
-		initialZ != bodySlider.sliderBaseValue.z) {
+		initialZ != bodySlider.sliderBaseValue.z)
 		human->resizeCube(glm::vec3(bodySlider.sliderBaseValue.x, bodySlider.sliderBaseValue.y,
-								   bodySlider.sliderBaseValue.z));
-	}
+									bodySlider.sliderBaseValue.z));
 }
 
 void drawLeftUpperArmSlider(Cube *human, Slider &leftUpperArmSlider, Slider &headSlider) {
-	double initialY = leftUpperArmSlider.sliderBaseValue.y, initialX = leftUpperArmSlider.sliderBaseValue.x,
+	double initialY = leftUpperArmSlider.sliderBaseValue.y,
+		   initialX = leftUpperArmSlider.sliderBaseValue.x,
 		   initialZ = leftUpperArmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftUpperArm", ImVec2(135, 120), true);
 	const char *text = "Left Upper Arm";
@@ -167,36 +154,32 @@ void drawLeftUpperArmSlider(Cube *human, Slider &leftUpperArmSlider, Slider &hea
 	ImGui::PushItemWidth(leftUpperArmSlider.sliderWidth);
 	ImGui::SliderFloat("Height", &leftUpperArmSlider.sliderBaseValue.y, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(leftUpperArmSlider.childWidth - leftUpperArmSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 		2);
 	ImGui::PushItemWidth(leftUpperArmSlider.sliderWidth);
 	ImGui::SliderFloat("Width", &leftUpperArmSlider.sliderBaseValue.x, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(leftUpperArmSlider.childWidth - leftUpperArmSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 		2);
 	ImGui::PushItemWidth(leftUpperArmSlider.sliderWidth);
 	ImGui::SliderFloat("Depth", &leftUpperArmSlider.sliderBaseValue.z, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::EndChild();
-	if (initialY != leftUpperArmSlider.sliderBaseValue.y || initialX != leftUpperArmSlider.sliderBaseValue.x ||
-		initialZ != leftUpperArmSlider.sliderBaseValue.z) {
+	if (initialY != leftUpperArmSlider.sliderBaseValue.y ||
+		initialX != leftUpperArmSlider.sliderBaseValue.x ||
+		initialZ != leftUpperArmSlider.sliderBaseValue.z)
 		human->_cubes[0]->resizeCube(glm::vec3(leftUpperArmSlider.sliderBaseValue.x,
-								   leftUpperArmSlider.sliderBaseValue.y,
-								   leftUpperArmSlider.sliderBaseValue.z));
-	}
+											   leftUpperArmSlider.sliderBaseValue.y,
+											   leftUpperArmSlider.sliderBaseValue.z));
 }
 
 void drawLeftForearmSlider(Cube *human, Slider &leftForearmSlider, Slider &headSlider) {
-	double initialY = leftForearmSlider.sliderBaseValue.y, initialX = leftForearmSlider.sliderBaseValue.x,
+	double initialY = leftForearmSlider.sliderBaseValue.y,
+		   initialX = leftForearmSlider.sliderBaseValue.x,
 		   initialZ = leftForearmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftForearm", ImVec2(135, 120), true);
 	const char *text = "Left Forearm";
@@ -210,34 +193,30 @@ void drawLeftForearmSlider(Cube *human, Slider &leftForearmSlider, Slider &headS
 	ImGui::PushItemWidth(leftForearmSlider.sliderWidth);
 	ImGui::SliderFloat("Height", &leftForearmSlider.sliderBaseValue.y, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(leftForearmSlider.childWidth - leftForearmSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) / 2);
 	ImGui::PushItemWidth(leftForearmSlider.sliderWidth);
 	ImGui::SliderFloat("Width", &leftForearmSlider.sliderBaseValue.x, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(leftForearmSlider.childWidth - leftForearmSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) / 2);
 	ImGui::PushItemWidth(leftForearmSlider.sliderWidth);
 	ImGui::SliderFloat("Depth", &leftForearmSlider.sliderBaseValue.z, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::EndChild();
-	if (initialY != leftForearmSlider.sliderBaseValue.y || initialX != leftForearmSlider.sliderBaseValue.x ||
-		initialZ != leftForearmSlider.sliderBaseValue.z) {
+	if (initialY != leftForearmSlider.sliderBaseValue.y ||
+		initialX != leftForearmSlider.sliderBaseValue.x ||
+		initialZ != leftForearmSlider.sliderBaseValue.z)
 		human->_cubes[0]->_cubes[0]->resizeCube(glm::vec3(leftForearmSlider.sliderBaseValue.x,
-								   leftForearmSlider.sliderBaseValue.y,
-								   leftForearmSlider.sliderBaseValue.z));
-	}
+														  leftForearmSlider.sliderBaseValue.y,
+														  leftForearmSlider.sliderBaseValue.z));
 }
 
 void drawRightUpperArmSlider(Cube *human, Slider &rightUpperArmSlider, Slider &headSlider) {
-	double initialY = rightUpperArmSlider.sliderBaseValue.y, initialX = rightUpperArmSlider.sliderBaseValue.x,
+	double initialY = rightUpperArmSlider.sliderBaseValue.y,
+		   initialX = rightUpperArmSlider.sliderBaseValue.x,
 		   initialZ = rightUpperArmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightUpperArm", ImVec2(135, 120), true);
 	const char *text = "Right Upper Arm";
@@ -252,36 +231,32 @@ void drawRightUpperArmSlider(Cube *human, Slider &rightUpperArmSlider, Slider &h
 	ImGui::PushItemWidth(rightUpperArmSlider.sliderWidth);
 	ImGui::SliderFloat("Height", &rightUpperArmSlider.sliderBaseValue.y, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(rightUpperArmSlider.childWidth - rightUpperArmSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 		2);
 	ImGui::PushItemWidth(rightUpperArmSlider.sliderWidth);
 	ImGui::SliderFloat("Width", &rightUpperArmSlider.sliderBaseValue.x, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(rightUpperArmSlider.childWidth - rightUpperArmSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 		2);
 	ImGui::PushItemWidth(rightUpperArmSlider.sliderWidth);
 	ImGui::SliderFloat("Depth", &rightUpperArmSlider.sliderBaseValue.z, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::EndChild();
-	if (initialY != rightUpperArmSlider.sliderBaseValue.y || initialX != rightUpperArmSlider.sliderBaseValue.x ||
-		initialZ != rightUpperArmSlider.sliderBaseValue.z) {
+	if (initialY != rightUpperArmSlider.sliderBaseValue.y ||
+		initialX != rightUpperArmSlider.sliderBaseValue.x ||
+		initialZ != rightUpperArmSlider.sliderBaseValue.z)
 		human->_cubes[1]->resizeCube(glm::vec3(rightUpperArmSlider.sliderBaseValue.x,
-								   rightUpperArmSlider.sliderBaseValue.y,
-								   rightUpperArmSlider.sliderBaseValue.z));
-	}
+											   rightUpperArmSlider.sliderBaseValue.y,
+											   rightUpperArmSlider.sliderBaseValue.z));
 }
 
 void drawRightForearmSlider(Cube *human, Slider &rightForearmSlider, Slider &headSlider) {
-	double initialY = rightForearmSlider.sliderBaseValue.y, initialX = rightForearmSlider.sliderBaseValue.x,
+	double initialY = rightForearmSlider.sliderBaseValue.y,
+		   initialX = rightForearmSlider.sliderBaseValue.x,
 		   initialZ = rightForearmSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightForearm", ImVec2(135, 120), true);
 	const char *text = "Right Forearm";
@@ -295,36 +270,32 @@ void drawRightForearmSlider(Cube *human, Slider &rightForearmSlider, Slider &hea
 	ImGui::PushItemWidth(rightForearmSlider.sliderWidth);
 	ImGui::SliderFloat("Height", &rightForearmSlider.sliderBaseValue.y, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(rightForearmSlider.childWidth - rightForearmSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 		2);
 	ImGui::PushItemWidth(rightForearmSlider.sliderWidth);
 	ImGui::SliderFloat("Width", &rightForearmSlider.sliderBaseValue.x, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(rightForearmSlider.childWidth - rightForearmSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 		2);
 	ImGui::PushItemWidth(rightForearmSlider.sliderWidth);
 	ImGui::SliderFloat("Depth", &rightForearmSlider.sliderBaseValue.z, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::EndChild();
-	if (initialY != rightForearmSlider.sliderBaseValue.y || initialX != rightForearmSlider.sliderBaseValue.x ||
-		initialZ != rightForearmSlider.sliderBaseValue.z) {
+	if (initialY != rightForearmSlider.sliderBaseValue.y ||
+		initialX != rightForearmSlider.sliderBaseValue.x ||
+		initialZ != rightForearmSlider.sliderBaseValue.z)
 		human->_cubes[1]->_cubes[0]->resizeCube(glm::vec3(rightForearmSlider.sliderBaseValue.x,
-								   rightForearmSlider.sliderBaseValue.y,
-								   rightForearmSlider.sliderBaseValue.z));
-	}
+														  rightForearmSlider.sliderBaseValue.y,
+														  rightForearmSlider.sliderBaseValue.z));
 }
 
 void drawLeftThighSlider(Cube *human, Slider &leftThighSlider, Slider &headSlider) {
-	double initialY = leftThighSlider.sliderBaseValue.y, initialX = leftThighSlider.sliderBaseValue.x,
+	double initialY = leftThighSlider.sliderBaseValue.y,
+		   initialX = leftThighSlider.sliderBaseValue.x,
 		   initialZ = leftThighSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftThigh", ImVec2(135, 120), true);
 	const char *text = "Left Thigh";
@@ -338,34 +309,30 @@ void drawLeftThighSlider(Cube *human, Slider &leftThighSlider, Slider &headSlide
 	ImGui::PushItemWidth(leftThighSlider.sliderWidth);
 	ImGui::SliderFloat("Height", &leftThighSlider.sliderBaseValue.y, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(leftThighSlider.childWidth - leftThighSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) / 2);
 	ImGui::PushItemWidth(leftThighSlider.sliderWidth);
 	ImGui::SliderFloat("Width", &leftThighSlider.sliderBaseValue.x, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(leftThighSlider.childWidth - leftThighSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) / 2);
 	ImGui::PushItemWidth(leftThighSlider.sliderWidth);
 	ImGui::SliderFloat("Depth", &leftThighSlider.sliderBaseValue.z, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::EndChild();
-	if (initialY != leftThighSlider.sliderBaseValue.y || initialX != leftThighSlider.sliderBaseValue.x ||
-		initialZ != leftThighSlider.sliderBaseValue.z) {
+	if (initialY != leftThighSlider.sliderBaseValue.y ||
+		initialX != leftThighSlider.sliderBaseValue.x ||
+		initialZ != leftThighSlider.sliderBaseValue.z)
 		human->_cubes[2]->resizeCube(glm::vec3(leftThighSlider.sliderBaseValue.x,
-								   leftThighSlider.sliderBaseValue.y,
-								   leftThighSlider.sliderBaseValue.z));
-	}
+											   leftThighSlider.sliderBaseValue.y,
+											   leftThighSlider.sliderBaseValue.z));
 }
 
 void drawLeftLowerLegSlider(Cube *human, Slider &leftLowerLegSlider, Slider &headSlider) {
-	double initialY = leftLowerLegSlider.sliderBaseValue.y, initialX = leftLowerLegSlider.sliderBaseValue.x,
+	double initialY = leftLowerLegSlider.sliderBaseValue.y,
+		   initialX = leftLowerLegSlider.sliderBaseValue.x,
 		   initialZ = leftLowerLegSlider.sliderBaseValue.z;
 	ImGui::BeginChild("LeftLowerLeg", ImVec2(135, 120), true);
 	const char *text = "Left Lower Leg";
@@ -379,36 +346,32 @@ void drawLeftLowerLegSlider(Cube *human, Slider &leftLowerLegSlider, Slider &hea
 	ImGui::PushItemWidth(leftLowerLegSlider.sliderWidth);
 	ImGui::SliderFloat("Height", &leftLowerLegSlider.sliderBaseValue.y, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(leftLowerLegSlider.childWidth - leftLowerLegSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 		2);
 	ImGui::PushItemWidth(leftLowerLegSlider.sliderWidth);
 	ImGui::SliderFloat("Width", &leftLowerLegSlider.sliderBaseValue.x, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(leftLowerLegSlider.childWidth - leftLowerLegSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 		2);
 	ImGui::PushItemWidth(leftLowerLegSlider.sliderWidth);
 	ImGui::SliderFloat("Depth", &leftLowerLegSlider.sliderBaseValue.z, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::EndChild();
-	if (initialY != leftLowerLegSlider.sliderBaseValue.y || initialX != leftLowerLegSlider.sliderBaseValue.x ||
-		initialZ != leftLowerLegSlider.sliderBaseValue.z) {
+	if (initialY != leftLowerLegSlider.sliderBaseValue.y ||
+		initialX != leftLowerLegSlider.sliderBaseValue.x ||
+		initialZ != leftLowerLegSlider.sliderBaseValue.z)
 		human->_cubes[2]->_cubes[0]->resizeCube(glm::vec3(leftLowerLegSlider.sliderBaseValue.x,
-								   leftLowerLegSlider.sliderBaseValue.y,
-								   leftLowerLegSlider.sliderBaseValue.z));
-	}
+														  leftLowerLegSlider.sliderBaseValue.y,
+														  leftLowerLegSlider.sliderBaseValue.z));
 }
 
 void drawRightThighSlider(Cube *human, Slider &rightThighSlider, Slider &headSlider) {
-	double initialY = rightThighSlider.sliderBaseValue.y, initialX = rightThighSlider.sliderBaseValue.x,
+	double initialY = rightThighSlider.sliderBaseValue.y,
+		   initialX = rightThighSlider.sliderBaseValue.x,
 		   initialZ = rightThighSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightThigh", ImVec2(135, 120), true);
 	const char *text = "Right Thigh";
@@ -422,34 +385,30 @@ void drawRightThighSlider(Cube *human, Slider &rightThighSlider, Slider &headSli
 	ImGui::PushItemWidth(rightThighSlider.sliderWidth);
 	ImGui::SliderFloat("Height", &rightThighSlider.sliderBaseValue.y, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(rightThighSlider.childWidth - rightThighSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) / 2);
 	ImGui::PushItemWidth(rightThighSlider.sliderWidth);
 	ImGui::SliderFloat("Width", &rightThighSlider.sliderBaseValue.x, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(rightThighSlider.childWidth - rightThighSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) / 2);
 	ImGui::PushItemWidth(rightThighSlider.sliderWidth);
 	ImGui::SliderFloat("Depth", &rightThighSlider.sliderBaseValue.z, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::EndChild();
-	if (initialY != rightThighSlider.sliderBaseValue.y || initialX != rightThighSlider.sliderBaseValue.x ||
-		initialZ != rightThighSlider.sliderBaseValue.z) {
+	if (initialY != rightThighSlider.sliderBaseValue.y ||
+		initialX != rightThighSlider.sliderBaseValue.x ||
+		initialZ != rightThighSlider.sliderBaseValue.z)
 		human->_cubes[3]->resizeCube(glm::vec3(rightThighSlider.sliderBaseValue.x,
-								   rightThighSlider.sliderBaseValue.y,
-								   rightThighSlider.sliderBaseValue.z));
-	}
+											   rightThighSlider.sliderBaseValue.y,
+											   rightThighSlider.sliderBaseValue.z));
 }
 
 void drawRightLowerLegSlider(Cube *human, Slider &rightLowerLegSlider, Slider &headSlider) {
-	double initialY = rightLowerLegSlider.sliderBaseValue.y, initialX = rightLowerLegSlider.sliderBaseValue.x,
+	double initialY = rightLowerLegSlider.sliderBaseValue.y,
+		   initialX = rightLowerLegSlider.sliderBaseValue.x,
 		   initialZ = rightLowerLegSlider.sliderBaseValue.z;
 	ImGui::BeginChild("RightLowerLeg", ImVec2(135, 120), true);
 	const char *text = "Right Lower Leg";
@@ -464,30 +423,25 @@ void drawRightLowerLegSlider(Cube *human, Slider &rightLowerLegSlider, Slider &h
 	ImGui::PushItemWidth(rightLowerLegSlider.sliderWidth);
 	ImGui::SliderFloat("Height", &rightLowerLegSlider.sliderBaseValue.y, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(rightLowerLegSlider.childWidth - rightLowerLegSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 		2);
 	ImGui::PushItemWidth(rightLowerLegSlider.sliderWidth);
 	ImGui::SliderFloat("Width", &rightLowerLegSlider.sliderBaseValue.x, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::Spacing();
-
 	ImGui::SetCursorPosX(
 		(rightLowerLegSlider.childWidth - rightLowerLegSlider.sliderWidth - 25 - CHAR_PIXEL_SIZE) /
 		2);
 	ImGui::PushItemWidth(rightLowerLegSlider.sliderWidth);
 	ImGui::SliderFloat("Depth", &rightLowerLegSlider.sliderBaseValue.z, 1, 10);
 	ImGui::PopItemWidth();
-
 	ImGui::EndChild();
-	if (initialY != rightLowerLegSlider.sliderBaseValue.y || initialX != rightLowerLegSlider.sliderBaseValue.x ||
-		initialZ != rightLowerLegSlider.sliderBaseValue.z) {
+	if (initialY != rightLowerLegSlider.sliderBaseValue.y ||
+		initialX != rightLowerLegSlider.sliderBaseValue.x ||
+		initialZ != rightLowerLegSlider.sliderBaseValue.z)
 		human->_cubes[3]->_cubes[0]->resizeCube(glm::vec3(rightLowerLegSlider.sliderBaseValue.x,
-								   rightLowerLegSlider.sliderBaseValue.y,
-								   rightLowerLegSlider.sliderBaseValue.z));
-	}
+														  rightLowerLegSlider.sliderBaseValue.y,
+														  rightLowerLegSlider.sliderBaseValue.z));
 }
