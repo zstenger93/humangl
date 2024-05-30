@@ -48,7 +48,7 @@ void keyPressHandler_Color_OR_Texture(GLFWwindow *window, int &version, Object &
 	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) version = 2;
 	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS) version = 1;
 	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS && !tKeyPressed) {
-		if (object.textures.size() == object.textureType + 1 && !tKeyPressed)
+		if (object.textures.size() == static_cast<size_t>(object.textureType + 1) && !tKeyPressed)
 			object.textureType = 0;
 		else if (!tKeyPressed)
 			object.textureType += 1;
@@ -84,6 +84,7 @@ void keyPressHandler_SetColor(GLFWwindow *window, glm::vec3 &color) {
 
 void keyPressHandler_SetColorVersion(GLFWwindow *window, int &version, Object &object) {
 	static bool bKeyPressed = false;
+	(void)object;
 
 	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS && !bKeyPressed) {
 		version++;

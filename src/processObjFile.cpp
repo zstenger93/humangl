@@ -28,7 +28,7 @@ void initObject(Object &object) {
 
 void loadFromObjFile(const std::string &filePath, Object &object) {
 	std::string line;
-	std::ifstream objFile(filePath);
+	std::ifstream objFile("resources/human.obj");
 	if (!objFile.is_open()) {
 		std::cerr << "Error opening the file: " << filePath << std::endl;
 		return;
@@ -36,26 +36,12 @@ void loadFromObjFile(const std::string &filePath, Object &object) {
 	while (std::getline(objFile, line)) {
 		std::string prefix, fileName;
 		std::istringstream stream(line);
-		Uv uvVal;
-		float normalX, normalY, normalZ;
 
 		stream >> prefix;
 		if (prefix == "o") {
 			stream >> object.windowName;
-		} else if (prefix == "mtllib") {
+		} else if (prefix == "mtllib")
 			saveMtlAttributes(object, stream, prefix, fileName);
-		} else if (prefix == "v") {
-			saveVertexCoordinates(stream, object);
-		} else if (prefix == "vn") {
-			stream >> normalX >> normalY >> normalZ;
-			object.normals.push_back(glm::vec3(normalX, normalY, normalZ));
-		} else if (prefix == "vt") {
-			stream >> uvVal.u >> uvVal.v >> uvVal.w;
-			object.uv.push_back(uvVal);
-		} else if (prefix == "f") {
-			object.polyCount++;
-			saveFaceIndexes(stream, object);
-		}
 	}
 	objFile.close();
 }
@@ -73,7 +59,7 @@ void initMtl(Object &object) {
 void saveMtlAttributes(Object &object, std::istringstream &stream, std::string &prefix,
 					   std::string fileName) {
 	stream >> fileName;
-	std::string mLine, file = "../resources/" + fileName;
+	std::string mLine, file = "resources/42.mtl";
 	std::ifstream mtlFile(file);
 	if (mtlFile.is_open()) {
 		while (std::getline(mtlFile, mLine)) {
@@ -240,9 +226,9 @@ void convertSquaresToTriangles(Object &object) {
 		float texX4 = object.Squares[i + 18];
 		float texY4 = object.Squares[i + 19];
 
-		object.Triangles.insert(object.Triangles.end(), {x1, y1, z1, texX1, texY1, x2, y2, z2, texX2, texY2, x3,
-										   y3, z3, texX3, texY3});
-		object.Triangles.insert(object.Triangles.end(), {x1, y1, z1, texX1, texY1, x3, y3, z3, texX3, texY3, x4,
-										   y4, z4, texX4, texY4});
+		object.Triangles.insert(object.Triangles.end(), {x1, y1, z1, texX1, texY1, x2, y2, z2,
+														 texX2, texY2, x3, y3, z3, texX3, texY3});
+		object.Triangles.insert(object.Triangles.end(), {x1, y1, z1, texX1, texY1, x3, y3, z3,
+														 texX3, texY3, x4, y4, z4, texX4, texY4});
 	}
 }
