@@ -99,6 +99,10 @@ human:
 	make
 	@${EXEC} ${VERTEX_SOURCE} ${FRAGMENT_SOURCE} ${OBJECT_HUMAN} ${TEXTURES}
 
+dependencies:
+	@echo "$(YELLOW)Installing dependencies...$(COLOR_END)"
+	@brew install glfw glew glm
+	@echo "$(GREEN)Dependencies installed.$(COLOR_END)"
 .PHONY: all clean fclean re human
 
 COLOR_END = \033[0;39m
