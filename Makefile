@@ -1,8 +1,7 @@
 NAME = scop
-CFLAGS =  -Wno-deprecated-declarations -Wno-macro-redefined -Wno-c++11-extensions -std=c++11 -Werror -Wall -Wextra -Wno-reorder
+CFLAGS =  -Wno-deprecated-declarations -Wno-macro-redefined -Wno-c++11-extensions -std=c++11 -Werror -Wall -Wextra -Wno-reorder -I/Users/${USER}/.brew/Cellar/glm/1.0.1/include
 GLFW = -I/Users/${USER}/.brew/Cellar/glfw/3.4/include -L/Users/${USER}/.brew/Cellar/glfw/3.4/lib -lglfw -framework OpenGL -framework CoreGraphics -framework CoreFoundation
 GLEW = -I/Users/${USER}/.brew/Cellar/glew/2.2.0_1/include -L/Users/${USER}/.brew/Cellar/glew/2.2.0_1/lib -lGLEW -framework OpenGL
-
 GLAD = glad.o
 GLADLIB = gcc -c src/includes/glad/glad.c -Ilibs
 
