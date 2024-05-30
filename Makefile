@@ -103,7 +103,8 @@ dependencies:
 	@echo "$(YELLOW)Installing dependencies...$(COLOR_END)"
 	@brew install glfw glew glm
 	@echo "$(GREEN)Dependencies installed.$(COLOR_END)"
-.PHONY: all clean fclean re human
+
+.PHONY: all clean fclean re human dependencies
 
 COLOR_END = \033[0;39m
 CYAN3 = \033[1;4;96m
